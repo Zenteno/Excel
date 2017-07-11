@@ -24,9 +24,13 @@
 			-->
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-blue.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datepicker/datepicker3.css')}}">
+		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')}}">
 		
 		<!-- jQuery 2.2.3 -->
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 		
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

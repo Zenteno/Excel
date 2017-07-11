@@ -25,6 +25,6 @@ class HomeController extends Controller
     public function index()
     {
         $fichas = Ficha::all();
-        return view('prueba')->with("fichas",$fichas);
+        return view('home.index')->with("fichas",$fichas);
     }
 }

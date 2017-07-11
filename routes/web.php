@@ -23,11 +23,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/create',function(){
+	return view('home.create');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/formularios/{id}', function($id){
 	$ficha = Ficha::find($id);
-	return view('view')->with('ficha',$ficha);
+	return view('home.view')->with('ficha',$ficha);
 });
 
 Route::post('/archivo', function(Request $request){
