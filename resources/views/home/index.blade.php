@@ -32,7 +32,9 @@
                         <!-- The file input field used as target for the file upload widget -->
                         <input id="fileupload" type="file" name="file">
                     </span>
-                    <a href="/create">Nuevo</a>
+                    <a class="btn btn-success" href="/create">
+                        <i class="fa fa-plus"></i> Nuevo
+                    </a>
                     
                 </div>
                             <!-- /.box-header -->

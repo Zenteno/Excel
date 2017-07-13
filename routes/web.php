@@ -26,6 +26,10 @@ Auth::routes();
 Route::get('/create',function(){
 	return view('home.create');
 });
+Route::post('/create', function(Request $request){
+	Ficha::create($request->all());
+	return redirect()->route('home');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
 
