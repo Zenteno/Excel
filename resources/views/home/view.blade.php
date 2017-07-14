@@ -9,58 +9,45 @@
 	<div class="clearfix"></div>
 </div>
 <div class="x_content">
-	<div class="col-md-9 col-sm-9 col-xs-12" style="width: 100%;">
-		<ul class="stats-overview">
-			<li>
-				<span class="name"> Especialiad </span>
-				<span class="value text-success"> {{ $ficha->especialidad }} </span>
-			</li>
-			<li>
-				<span class="name"> Médico </span>
-				<span class="value text-success"> {{ $ficha->medico }} </span>
-			</li>
-			<li>
-				<span class="name"> Paciente </span>
-				<span class="value text-success"> {{ $ficha->paciente }} </span>
-			</li>
-		</ul>
-		<br />
+	<div class="col-md-6">
+		<div class="box box-solid">
+			<div class="box-body">
+				<dl class="dl-horizontal">
+					<dt>Especialidad</dt>
+					<dd>{{ $ficha->especialidad }}</dd>
+					<dt>Médico</dt>
+					<dd>{{ $ficha->medico }} </dd>
+					<dt>Paciente</dt>
+					<dd>{{ $ficha->paciente }}</dd>
+					<dt>RUN</dt>
+					<dd>{{ $ficha->rut }}</dd>
+					<dt>Sexo</dt>
+					<dd>{{ $ficha->sexo }} </dd>
+					<dt>Observación</dt>
+					<dd>{{ $ficha->observacion }} </dd>
+				</dl>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	<!-- /.box -->
 	</div>
-	<div class="col-md-9 col-sm-9 col-xs-12" style="width: 100%;">
-		<ul class="stats-overview">
-			<li>
-				<span class="name"> RUT </span>
-				<span class="value text-success"> {{ $ficha->rut }} </span>
-			</li>
-			<li>
-				<span class="name"> Sexo </span>
-				<span class="value text-success"> {{ $ficha->sexo }} </span>
-			</li>
-			<li>
-				<span class="name"> Obs </span>
-				<span class="value text-success"> {{ $ficha->observacion }} </span>
-			</li>
-		</ul>
-		<br />
+	<div class="col-md-6">
+		<div class="box box-solid">
+			<div class="box-body">
+				<dl class="dl-horizontal">
+					<dt>Intento 1</dt>
+					<dd>{{ $ficha->intento1 }}</dd>
+					<dt>Intento 2</dt>
+					<dd>{{ $ficha->intento2 }} </dd>
+					<dt>Intento 3</dt>
+					<dd>{{ $ficha->intento3 }}</dd>
+				</dl>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	<!-- /.box -->
 	</div>
-	<div class="col-md-9 col-sm-9 col-xs-12" style="width: 100%;">
-		<ul class="stats-overview">
-			<li>
-				<span class="name"> 1 Intento </span>
-				<span class="value text-success"> {{ $ficha->intento1 }} </span>
-			</li>
-			<li>
-				<span class="name"> 2 Intento </span>
-				<span class="value text-success"> {{ $ficha->intento2 }} </span>
-			</li>
-			<li>
-				<span class="name"> 3 Intento </span>
-				<span class="value text-success"> {{ $ficha->intento3 }} </span>
-			</li>
-		</ul>
-		<br />
-	</div>
-	<div class="col-md-6 col-sm-12 col-xs-12">
+	<div class="col-md-8">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Teléfonos</h2>
