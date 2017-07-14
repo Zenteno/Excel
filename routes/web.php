@@ -68,7 +68,8 @@ Route::post('/archivo', function(Request $request){
 				$arreglo["fono".$i] = trim($telefonos[$i-1]);
 			Ficha::create($arreglo);
 		}
-		return ["success"=>true, "nombre"=>$nombre];
+		flash('Datos Cargados Exitosamente');
+		return $arreglo;
 	}
 	return;
 

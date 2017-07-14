@@ -23,7 +23,7 @@
     <div class='row'>
        <div class="col-md-12">
            <div class="box">        
-
+            @include('flash::message')
                 <div class="box-header">
                     <h3 class="box-title">Formularios</h3>
                     <span class="btn btn-success fileinput-button pull-right">
@@ -104,7 +104,7 @@
                     _token : "{{ csrf_token() }}"
                 },
                 done: function (e, data) {
-                    
+                     location.reload(); 
                 },
                 progressall: function (e, data) {
                     var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -116,5 +116,6 @@
             }).prop('disabled', !$.support.fileInput)
                 .parent().addClass($.support.fileInput ? undefined : 'disabled');
                 })
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     </script>
 @endsection
