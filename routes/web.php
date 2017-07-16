@@ -28,6 +28,7 @@ Route::get('/create',function(){
 });
 Route::post('/create', function(Request $request){
 	Ficha::create($request->all());
+	flash('Ficha creada Exitosamente');
 	return redirect()->route('home');
 });
 
@@ -36,6 +37,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/formularios/{id}', function($id){
 	$ficha = Ficha::find($id);
 	return view('home.view')->with('ficha',$ficha);
+});
+
+Route::get('/ficha/todos',function(Request $request){
+	$users = Ficha::select(["id","especialidad","medico","fecha","paciente","rut","sexo","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva"])->get();
+    return Datatables::of($users)->addColumn('action', function ($user) {
+                return '<a href="/formularios/'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })->make(true);
 });
 
 Route::post('/archivo', function(Request $request){
