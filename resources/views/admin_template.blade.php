@@ -22,16 +22,18 @@
 			page. However, you can choose any other skin. Make sure you
 			apply the skin class to the body tag so the changes take effect.
 			-->
+
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-blue.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datepicker/datepicker3.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')}}">
-		
+
 		<!-- jQuery 2.2.3 -->
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
-		
+		<!--Modal Form Bower Component -->
+		<script src="{{ asset('/bower_components/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js')}}"></script>
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,7 +67,7 @@
 			<!-- Main Header -->
 			@include('cabecera')
 			<!-- Left side column. contains the logo and sidebar -->
-			
+
 			@include('costado')
 
 			<!-- Content Wrapper. Contains page content -->
@@ -172,12 +174,12 @@
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQueryUI/jquery-ui.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery.fileupload.js')}}"></script>
-		
-		
+		<!--Modal Form Bower Component -->
+		<script src="{{ asset('/bower_components/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js')}}"></script>
+
 		<!-- Optionally, you can add Slimscroll and FastClick plugins.
 			Both of these plugins are recommended to enhance the
 			user experience. Slimscroll is required when using the
 			fixed layout. -->
 	</body>
 </html>
-

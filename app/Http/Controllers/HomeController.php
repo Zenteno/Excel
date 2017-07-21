@@ -22,9 +22,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $fichas = Ficha::all();
-        return view('home.index')->with("fichas",$fichas);
-    }
+     public function index()
+     {
+         $fichas = Ficha::all();
+         return view('home.index')->with("fichas",$fichas);
+     }
 }

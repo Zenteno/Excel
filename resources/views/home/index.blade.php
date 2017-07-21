@@ -24,7 +24,7 @@
 </style>
 	<div class='row'>
 	   <div class="col-md-12">
-		   <div class="box">        
+		   <div class="box">
 			@include('flash::message')
 				<div class="box-header">
 					<h3 class="box-title">Formularios</h3>
@@ -37,7 +37,7 @@
 					<a class="btn btn-success" href="/create">
 						<i class="fa fa-plus"></i> Nuevo
 					</a>
-					
+
 				</div>
 							<!-- /.box-header -->
 				<div class="box-body">
@@ -83,7 +83,7 @@
 					_token : "{{ csrf_token() }}"
 				},
 				done: function (e, data) {
-					 location.reload(); 
+					 location.reload();
 				},
 				progressall: function (e, data) {
 					var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -146,12 +146,12 @@
 									var val = $.fn.dataTable.util.escapeRegex(
 										$(this).val()
 									);
-			
+
 									column
 										.search( val ? '^'+val+'$' : '', true, false )
 										.draw();
 								} );
-		
+
 							column.data().unique().sort().each( function ( d, j ) {
 							   select.append( '<option value="'+d+'">'+d+'</option>' )
 							} );

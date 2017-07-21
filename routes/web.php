@@ -12,32 +12,45 @@ use Illuminate\Http\Request;
 |
 */
 
-use PHPExcel;
-use PHPExcel_IOFactory; 
+use phpoffice\phpexcel\Clases\PHPExcel;
+use phpoffice\phpexcel\PHPExcel\IOFactory;
 
 use App\Ficha;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+//Route::resource('formularios','FormularioController');
+Route::resource('medicos',     'MedicosController');
+Route::resource('especialidades','EspecialidadesController');
 
 Auth::routes();
 
+// trasladado a FormularioController.create
 Route::get('/create',function(){
 	return view('home.create');
 });
+
+
+//trasladado a FormularioController.store
 Route::post('/create', function(Request $request){
 	Ficha::create($request->all());
 	flash('Ficha creada Exitosamente');
 	return redirect()->route('home');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
 
+
+
+// trasladado a FormularioController.show
 Route::get('/formularios/{id}', function($id){
 	$ficha = Ficha::find($id);
 	return view('home.view')->with('ficha',$ficha);
 });
+
 
 Route::get('/ficha/todos',function(Request $request){
 	$users = Ficha::select(["id","especialidad","medico","fecha","paciente","rut","sexo","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva"])->get();
