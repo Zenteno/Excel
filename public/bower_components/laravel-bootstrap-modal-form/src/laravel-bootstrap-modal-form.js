@@ -56,10 +56,10 @@ $('document').ready(function() {
         // Please wait.
         if (submit.is('button')) {
             var submitOriginal = submit.html();
-            submit.html('Please wait...');
+            submit.html('Espere...');
         } else if (submit.is('input')) {
             var submitOriginal = submit.val();
-            submit.val('Please wait...');
+            submit.val('Espere...');
         }
 
         // Request.

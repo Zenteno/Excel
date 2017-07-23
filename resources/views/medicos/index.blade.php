@@ -69,7 +69,7 @@
               <th>RUN</th>
               <th>Nombre</th>
               <th>Observaciones</th>
-              <th>Actión</th>
+              <th>Acción</th>
             </tr>
           </tfoot>
         </table>

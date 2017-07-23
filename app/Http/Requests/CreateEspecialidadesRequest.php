@@ -25,7 +25,7 @@ class CreateEspecialidadesRequest extends FormRequest
     {
         return [
 
-            'especialidad' => 'required|string|max:40|unique:specialties,especialidad'
+            'especialidad' => 'required|string|max:40|unique:specialties'
 
         ];
     }
@@ -33,9 +33,9 @@ class CreateEspecialidadesRequest extends FormRequest
     public function messages()
 {
     return [
-        'especialidad.required' => 'Debe Añadir el Nombre de la Especialidad',
-        'especialidad.max:40' =>'No puede sobrepasar los 40 caracteres',
-        'especialidad.unique'  => 'La especialidad ya Existe'
+        'especialidad.required' => '    Debe Añadir el Nombre de la Especialidad',
+        'especialidad.max:40' =>'     No puede sobrepasar los 40 caracteres',
+        'especialidad.unique'=>'      Ya existe esta especialidad'
 
     ];
 }

@@ -113,7 +113,7 @@
 				<!-- /.box-body -->
 				<div class="box-footer">
 					<a href="/home" class="btn btn-default">Cancelar</a>
-					<button type="submit" class="btn btn-info pull-right">Guardar</button>
+					<button type="submit" class="btn btn-primary pull-right">Guardar</button>
 				</div>
 				<!-- /.box-footer -->
 			</form>

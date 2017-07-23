@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function specialty(){
+        return $this->belongsToMany('\App\Specialty','specialty_user')
+        ->withPivot('especialidad_id', 'status');
+    }
 }

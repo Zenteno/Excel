@@ -56,7 +56,7 @@ resize: vertical;
           </div>
         </div>
         <div class="box-footer">
-          {!! Form::submit('Guardar cambios', ["class" => "btn btn-success pull-right"]) !!}
+          {!! Form::submit('Guardar cambios', ["class" => "btn btn-primary pull-right"]) !!}
           <a href="/medicos" class="btn btn-default">Cancelar</a>
         </div>
         <!-- /.box-footer -->

@@ -13,7 +13,7 @@ class EspecialidadesController extends Controller
   {
       $this->middleware('auth');
   }
-  
+
   public function index()
   {
 
@@ -21,20 +21,21 @@ class EspecialidadesController extends Controller
       return view('especialidades.index',['especialidades' => $especialidades]);
   }
 
-  public function store(CreateEspecialidadesRequest $request)
+  public function create(CreateEspecialidadesRequest $request)
   {
-          $especialidades= Specialty::create([
-             'especialidad'  => $request->get('especialidad'),
-           ]);
-
-        if($especialidades->save()){
+        /*  $especialidades= Specialty::create([
+             'especialidad'  => $request->get('especialidad')
+           ]);*/
+            $especialidades= $request->especialidad;
+           flash('Especialidad creada Exitosamente');
+      /*  if($especialidades->save()){
             flash('Especialidad Creada Exitosamente');
             return redirect('especialidades');
         }
         else{
             flash('Especialidad NO creada');
             return redirect('especialidades');
-        }
+        }*/
   }
 
   public function destroy($id){

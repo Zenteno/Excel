@@ -12,8 +12,8 @@
 
 <div class='row'>
   <div class="col-md-12">
-    <div class="box">
-      @include('flash::message')
+    <div class="box box-info">
+			@include('flash::message')
       <div class="box-header">
         <h3 class="box-title">Especialidades Medicas</h3>
         <button type="button" class="btn btn-success bootstrap-modal-form-open" data-toggle="modal" data-target="#createmodal">
@@ -61,34 +61,36 @@
   </div>
 </div>
 
-
 <!-- Modal -->
 <div id="createmodal" class="modal fade" role="dialog">
-  {!! Form::model($especialidades, ['method' => 'POST','route' => 'especialidades.store', 'class'=>'bootstrap-modal-form']) !!}
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Agregar Nueva Especialidad Medica</h4>
-      </div>
-      <div class="modal-body">
+	{!! Form::model($especialidades, ['method' => 'POST','route' => 'especialidades.store', 'class'=>'bootstrap-modal-form']) !!}
+  <div class="modal-dialog" role="document">
 
-        <div class="form-group row">
-          <label for="especialidad" class="col-sm-2 control-label">Especialidad:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" name="especialidad" placeholder="Medicina Interna">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        {!! Form::submit('Guardar', ["class" => "btn btn-success pull-right"]) !!}
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
+    	<!-- Modal content-->
+    	<div class="modal-content">
+      	<div class="modal-header">
+        <!--	<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        	<h4 class="modal-title">Agregar Nueva Especialidad Médica</h4>
+    		</div>
+      	<div class="modal-body">
+        	<div class="form-group row">
+          	<label for="especialidad" class="col-sm-2 control-label">Especialidad:</label>
+          	<div class="col-sm-10">
+            	<input type="text" class="form-control" name="especialidad" placeholder="Medicina Interna">
+          	</div>
+        	</div>
+      	</div>
+      	<div class="modal-footer">
+        	{!! Form::submit('Guardar', ["class" => "btn btn-primary pull-right"]) !!}
+        	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+      	</div>
+    	</div>
+  
+	</div>
   {{Form::close()}}
 </div>
+<!-- End Modal -->
+
 <script>
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 $(document).ready(function(){
@@ -125,7 +127,6 @@ $('#example1').dataTable({
 $('.confirm').on('click', function (e) {
 	return !!confirm($(this).data('confirm'));
 });
-
 
 </script>
 @endsection

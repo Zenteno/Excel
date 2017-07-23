@@ -3,10 +3,6 @@
 @section('content')
 
 <style type="text/css">
-  .infecha{
-    width: 82%;
-    padding-left: 15px !important;
-  }
 
 </style>
 
@@ -26,23 +22,23 @@
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 control-label">RUN</label>
           <div class="col-sm-2">
-            <input type="text" class="form-control" name="run" placeholder="12345678-1">
+            <input type="text" class="form-control" name="run" required placeholder="12345678-1">
           </div>
         </div>
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 control-label">Nombres</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="nombres" placeholder="Nombre">
+            <input type="text" class="form-control" name="nombres" required placeholder="Nombre">
           </div>
         </div>
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 control-label">Apellido Paterno</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" name="paterno" placeholder="Apelido Paterno">
+            <input type="text" class="form-control" name="paterno" required placeholder="Apelido Paterno">
           </div>
           <label for="inputEmail3" class="col-sm-2 control-label">Apellido Materno</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" name="materno" placeholder="Apellido Materno">
+            <input type="text" class="form-control" name="materno" required placeholder="Apellido Materno">
           </div>
         </div>
         <div class="form-group row">
@@ -51,7 +47,7 @@
         <div class="form-group row">
           {{Form::label('especialidad','Especialidad:',['class'=>'col-sm-2 col-form-label'])}}
           <div class="col-sm-4">
-            {!!Form::select('especialidad_id', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control'])!!}
+            {!!Form::select('especialidad_id', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required'])!!}
           </div>
         </div>
         <div class="form-group row">
@@ -65,7 +61,7 @@
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <!-- /.box-body -->
       <div class="box-footer">
-        {!! Form::submit('Guardar', ["class" => "btn btn-success pull-right"]) !!}
+        {!! Form::submit('Guardar', ["class" => "btn btn-primary pull-right"]) !!}
         <a href="/medicos" class="btn btn-default">Cancelar</a>
       </div>
       <!-- /.box-footer -->
