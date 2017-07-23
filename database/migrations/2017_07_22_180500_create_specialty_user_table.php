@@ -16,10 +16,10 @@ class CreateSpecialtyUserTable extends Migration
         Schema::create('specialty_user', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('status');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('especialidad_id');
-            $table->foreign('especialidad_id')->references('id')->on('specialties')->onDelete('cascade');
+            $table->integer('usuario')->unsigned();
+            $table->foreign('usuario')->references('id')->on('users');
+            $table->integer('especialidad')->unsigned();
+            $table->foreign('especialidad')->references('id')->on('specialties');
             $table->timestamps();
         });
     }

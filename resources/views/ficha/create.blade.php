@@ -18,20 +18,21 @@
 			</div>
 			<!-- /.box-header -->
 			<!-- form start -->
-			<form class="form-horizontal" action="/create" method="POST">
+			<form class="form-horizontal" action="/ficha" method="POST">
 				<div class="box-body">
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Especialidad</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="especialidad" placeholder="Traumatología">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Médico</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="medico" placeholder="Juan Pérez">
-						</div>
-					</div>
+					<div class="form-group row">
+			          {{Form::label('especialidad','Especialidad:',['class'=>'col-sm-2 control-label'])}}
+			          <div class="col-sm-10">
+			            {!!Form::select('specialty', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required'])!!}
+			          </div>
+			        </div>
+					<div class="form-group row">
+			          {{Form::label('medico','Médico:',['class'=>'col-sm-2 control-label'])}}
+			          <div class="col-sm-10">
+			            {!!Form::select('medico', $medicos->pluck('nombres','id'), null,['placeholder'=>'Selecciona un Médico','class' => 'form-control' ,'required'])!!}
+			          </div>
+			        </div>
+					
 					<div class="bootstrap-timepicker">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Hora:</label>

@@ -21,13 +21,12 @@ class EspecialidadesController extends Controller
       return view('especialidades.index',['especialidades' => $especialidades]);
   }
 
-  public function create(CreateEspecialidadesRequest $request)
+  public function store(CreateEspecialidadesRequest $request)
   {
-        /*  $especialidades= Specialty::create([
+          $especialidades= Specialty::create([
              'especialidad'  => $request->get('especialidad')
-           ]);*/
-            $especialidades= $request->especialidad;
-           flash('Especialidad creada Exitosamente');
+          ]);
+          flash('Especialidad creada Exitosamente');
       /*  if($especialidades->save()){
             flash('Especialidad Creada Exitosamente');
             return redirect('especialidades');

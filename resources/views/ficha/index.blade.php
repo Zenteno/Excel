@@ -34,7 +34,7 @@
 						<!-- The file input field used as target for the file upload widget -->
 						<input id="fileupload" type="file" name="file">
 					</span>
-					<a class="btn btn-success" href="/create">
+					<a class="btn btn-success" href="/ficha/create">
 						<i class="fa fa-plus"></i> Nuevo
 					</a>
 
@@ -77,7 +77,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$('#fileupload').fileupload({
-				url: '/archivo',
+				url: '/ficha/archivo',
 				dataType: 'json',
 				formData: {
 					_token : "{{ csrf_token() }}"
@@ -100,10 +100,10 @@
 			var tabla = $('#example1').DataTable( {
 				processing: true,
 				serverSide: true,
-				ajax: 'ficha/todos',
+				ajax: 'ficha/listar',
 				columns: [
-					{ data: "especialidad", name: "especialidad"},
-					{ data: "medico", name: "medico"},
+					{ data: "fespecialidad.especialidad", name: "fespecialidad.especialidad" },
+					{ data: "doctor.nombres", name: "doctor.nombres"},
 					{ data: "fecha", name: "fecha"},
 					{ data: "paciente", name: "paciente"},
 					{ data: "rut", name: "rut"},
@@ -153,7 +153,7 @@
 								} );
 
 							column.data().unique().sort().each( function ( d, j ) {
-							   select.append( '<option value="'+d+'">'+d+'</option>' )
+								select.append( '<option value="'+d+'">'+d+'</option>' )
 							} );
 						}
 						else {

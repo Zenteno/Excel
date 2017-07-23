@@ -15,8 +15,6 @@ class CreateFormularioTable extends Migration
     {
         Schema::create('formularios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("especialidad",40);
-            $table->string("medico",40);
             $table->dateTime("fecha");
             $table->string("paciente",100);
             $table->string("rut",40);
@@ -30,6 +28,7 @@ class CreateFormularioTable extends Migration
             $table->string("intento3",40)->nullable();
             $table->string("ejecutiva",100);
             $table->timestamps();
+
         });
     }
 

@@ -17,16 +17,16 @@ class MedicosController extends Controller
 
    public function __construct()
    {
-       $this->middleware('auth');
+	   $this->middleware('auth');
    }
 
   public function index()
   {
 
-    //  $medicos = Doctor::get();
-      $medicos= Doctor::select(["id","run","nombres","paterno","materno","especialidad_id","comentarios"])->get();
-      $medicos = Doctor::orderBy('especialidad_id', 'asc')->paginate();
-      return view('medicos.index')->with('medicos',$medicos);
+	//  $medicos = Doctor::get();
+	  $medicos= Doctor::select(["id","run","nombres","paterno","materno","especialidad_id","comentarios"])->get();
+	  $medicos = Doctor::orderBy('especialidad_id', 'asc')->paginate();
+	  return view('medicos.index')->with('medicos',$medicos);
   }
 
   /**
@@ -36,9 +36,9 @@ class MedicosController extends Controller
    */
   public function create()
   {
-      $medicos = Doctor::All();
-      $especialidades = Specialty::All();
-      return view('medicos.create', ['medicos' => $medicos], ['especialidades' => $especialidades]);
+	  $medicos = Doctor::All();
+	  $especialidades = Specialty::All();
+	  return view('medicos.create', ['medicos' => $medicos], ['especialidades' => $especialidades]);
   }
 
   /**
@@ -49,76 +49,71 @@ class MedicosController extends Controller
    */
    public function store(Request $request)
    {
-     $medico = Doctor::create([
-              'run'         => $request->get('run'),
-             'nombres'      => $request->get('nombres'),
-             'paterno'      => $request->get('paterno'),
-             'materno'      => $request->get('materno'),
-             'especialidad_id' => $request->get('especialidad_id'),
-             'comentarios'     => $request->get('comentarios'),
-             ]);
-         if($medico->save()){
-             flash('Medico Creado Exitosamente');
-             return redirect('medicos');
-         }
-         else{
-             flash('Medico NO creado');
-             return redirect('medicos/create');
-         }
+	 $medico = Doctor::create([
+			  'run'         => $request->get('run'),
+			 'nombres'      => $request->get('nombres'),
+			 'paterno'      => $request->get('paterno'),
+			 'materno'      => $request->get('materno'),
+			 'especialidad_id' => $request->get('especialidad_id'),
+			 'comentarios'     => $request->get('comentarios'),
+			 ]);
+	if($medico->save()){
+		flash('Medico Creado Exitosamente');
+		return redirect('medicos');
+	}
+ 	else{
+		flash('Medico NO creado');
+		return redirect('medicos/create');
+	}
 
   }
 
-  public function show($id)
-  {
-        $medicos = Doctor::find($id);
-       return view('medicos.show')->with('medicos',$medicos);
+	public function show($id)
+	{
+		$medicos = Doctor::find($id);
+	    return view('medicos.show')->with('medicos',$medicos);
+	}
 
-  }
+	public function edit($id)
+  	{
+		$medicos = Doctor::find($id);
+		$especialidades = Specialty::all();
+		return view('medicos.edit',compact('especialidades'))->with('medicos',$medicos);
+  	}
 
-public function edit($id)
-  {
-      $medicos = Doctor::find($id);
-      $especialidades = Specialty::all();
-      return view('medicos.edit',compact('especialidades'))->with('medicos',$medicos);
-  }
+	public function update(Request $request, $id)
+	{
 
-  public function update(Request $request, $id)
-  {
+		$medicos = Doctor::findOrFail($id);
+		$this->validate($request, [
+			  'especialidad_id' => 'required|exists:specialties,id',
+			  'comentarios' => 'required|string|max:500',
+		]);
+		$medicos->especialidad_id = $request->input('especialidad_id');
+		$medicos->comentarios = $request->input('comentarios');
 
-
-            $medicos = Doctor::findOrFail($id);
-
-            $this->validate($request, [
-              'especialidad_id' => 'required|exists:specialties,id',
-              'comentarios' => 'required|string|max:500',
-            ]);
-           $medicos->especialidad_id = $request->input('especialidad_id');
-          $medicos->comentarios = $request->input('comentarios');
-
-                if($medicos->save()){
-                    flash('Informacion de Médico modificada Exitosamente');
-                    return redirect('medicos');}
-                else{
-                    flash('Fallo en la actualizacion de información');
-                    return redirect('medicos');
-                }
+		if($medicos->save()){
+			flash('Informacion de Médico modificada Exitosamente');
+			return redirect('medicos');}
+		else{
+			flash('Fallo en la actualizacion de información');
+			return redirect('medicos');
+		}
+	}
 
 
-  }
-
-
-  public function destroy($id)
-  {
-    $medicos = Doctor::find($id);
-      if($medicos->delete())
-      {
-          flash('Médico Eliminado del Sistema');
-          return redirect('medicos');
-      }
-      else{
-          flash('Médico no ha podido ser eliminado del Sistema');
-          return redirect('medicos');
-      }
-  }
+  	public function destroy($id)
+  	{
+		$medicos = Doctor::find($id);
+	  	if($medicos->delete())
+	  	{
+			flash('Médico Eliminado del Sistema');
+			return redirect('medicos');
+		}
+		else{
+			flash('Médico no ha podido ser eliminado del Sistema');
+			return redirect('medicos');
+		}
+	}
 
 }
