@@ -7,6 +7,7 @@ use App\User;
 use App\Specialty;
 use App\Spe_user;
 
+
 class UsuarioController extends Controller
 {
     /**
@@ -25,28 +26,38 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+     protected function create()
+     {
+         return view('usuarios.create');
+     }
+
+
     public function store(Request $request)
     {
+      $usuario =User::create([
+          'name' => $request['name'],
+          'email' => $request['email'],
+          'password' => bcrypt($request['password']),
+      ]);
+
+      if($usuario->save()){
+            flash('Usuario Creado Exitosamente');
+            return redirect('usuarios');
+        }
+        else{
+            flash('Usuario NO creado');
+            return redirect('usuarios');
+        }
 
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         //
@@ -85,7 +96,7 @@ class UsuarioController extends Controller
         }
         $usuarios = User::all();
         return view('usuarios.index')->with('usuarios', $usuarios);
-        
+
     }
 
     /**
@@ -96,6 +107,15 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $usuario=User::findOrFail($id);
+      if($usuario->delete())
+      {
+          flash('Usuario Eliminado Exitosamente');
+          return redirect('usuarios');
+      }
+      else{
+          flash('Este usuario no ha podido ser eliminado');
+          return redirect('usuarios');
+      }
     }
 }

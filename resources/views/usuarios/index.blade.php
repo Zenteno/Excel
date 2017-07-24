@@ -25,7 +25,7 @@
       @include('flash::message')
       <div class="box-header">
         <h3 class="box-title">Usuarios</h3>
-          <a class="btn btn-success fileinput-button" href="usuario/create">
+          <a class="btn btn-success fileinput-button" href="usuarios/create">
             <i class="fa fa-plus"></i> Nuevo
           </a>
       </div>
@@ -49,7 +49,7 @@
 
  					{!! Form::open(['route' => ['usuarios.destroy', $usuario->id], 'method' => 'DELETE']) !!}
             	<td class="text-center">
-								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Médico de {{ $usuario->name }}?'>
+								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Usuario: {{ $usuario->name }}?'>
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
                 <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-info btn-xs">
