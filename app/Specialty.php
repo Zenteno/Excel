@@ -14,7 +14,10 @@ class Specialty extends Model
     }
 
     public function user(){
-        return $this->belongsToMany('\App\User','specialty_user')
-            ->withPivot('user_id', 'status');
+    	return $this->belongsToMany(
+            'App\User', 'specialty_user',
+            'especialidad', 'usuario'
+        );    
     }
+    
 }

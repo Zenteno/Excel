@@ -28,7 +28,8 @@ class User extends Authenticatable
     ];
 
     public function specialty(){
-        return $this->belongsToMany('\App\Specialty','specialty_user')
-        ->withPivot('especialidad_id', 'status');
+        return $this->belongsToMany('\App\Specialty','specialty_user','usuario','especialidad');
     }
+
+
 }

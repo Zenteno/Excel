@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'FormularioController@index');
 
 Route::resource('medicos','MedicosController');
 Route::resource('especialidades','EspecialidadesController');

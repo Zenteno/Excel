@@ -8,6 +8,7 @@ use PHPExcel;
 use PHPExcel_IOFactory; 
 use Datatables;
 
+use Auth;
 use App\Ficha;
 use App\Doctor;
 use App\Specialty;
@@ -22,8 +23,7 @@ class FormularioController extends Controller
 
   public function index()
   {
-	  $fichas = Ficha::all();
-	  return view('ficha.index')->with("fichas",$fichas);
+  		return view('ficha.index');
   }
 
   public function create()
@@ -41,13 +41,18 @@ class FormularioController extends Controller
 
   	public function show($id)
  	{
-		$ficha = Ficha::find($id);
+		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad')->first();
 		return view('ficha.show')->with('ficha',$ficha);
   	}			
 
 	public function listar(Request $request){
-		$fichas = Ficha::with('doctor','fespecialidad');
-	  	return Datatables::of($fichas)->addColumn('action', function ($fichas) {
+		$especialidades = Auth::user();
+		$especialidades = $especialidades->specialty()->get();
+		$aux = [];
+		foreach ($especialidades as $especialidad)
+			$aux[] = $especialidad->id;
+		$fichas = Ficha::whereIn('specialty',$aux)->with('doctor','fespecialidad');
+		return Datatables::of($fichas)->addColumn('action', function ($fichas) {
 				return '<a href="ficha/'.$fichas->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Detalles</a>';
 			})->make(true);
 	}

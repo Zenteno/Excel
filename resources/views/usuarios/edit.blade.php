@@ -3,13 +3,16 @@
 @section('content')
 
 <style type="text/css">
-  .infecha{
-    width: 82%;
-    padding-left: 15px !important;
+  .select2-selection__choice{
+    background-color: #3c8dbc !important;
+    border: 1px solid #3c8dbc !important;
+  }
+  .select2-selection__choice__remove{
+    color:white !important;
   }
 
   textarea {
-resize: vertical;
+  resize: vertical;
 }
 
 </style>
@@ -17,7 +20,7 @@ resize: vertical;
   <div class="col-md-12">
     @include('flash::message')
       <div class="x_title">
-        <h2>Médico: {{ $medicos->paterno }} {{ $medicos->materno }}, {{ $medicos->nombres }}</h2>
+        <h2>Usuario: {{ $usuario->name }}</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -26,13 +29,9 @@ resize: vertical;
           <div class="box box-solid">
             <div class="box-body">
               <dl class="dl-horizontal">
-                <dt>RUN</dt>
-                <dd>{{ $medicos->run }}</dd>
-                <dt>Especialidad</dt>
-                <dd>{{ $medicos->specialty->especialidad }}</dd>
-                <dt>Observaciones</dt>
-                <dd>{{ $medicos->comentarios }} </dd>
-              </dl>
+                <dt>Nombre</dt>
+                <dd>{{ $usuario->name }}</dd>
+                </dl>
             </div>
           </div>
         </div>
@@ -43,24 +42,41 @@ resize: vertical;
         <h2>Actualizar Datos:</h2>
         <div class="clearfix"></div>
       </div>
+      {!! Form::model($usuario, ['method' => 'PATCH','route' => ['usuarios.update', $usuario->id]]) !!}
       <div class="col-md-12">
         <div class="box box-solid">
           <div class="box-body">
-            {!! Form::model($medicos, ['method' => 'PATCH','route' => ['medicos.update', $medicos->id]]) !!}
-            <dl class="dl-horizontal form-group">
-              <dt>Especialidad</dt>
-              <dd>{!!Form::select('especialidad_id', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control'])!!}</dd>
-              <dt>Observaciones</dt>
-              <dd><textarea class="form-control" rows="3" name="comentarios" required placeholder="{{ $medicos->comentarios }}"></textarea></dd>
-            </dl>
+            <div class="form-group">
+                <label>Especialidades</label>
+                <select class="form-control select2" multiple="multiple" data-placeholder="Selecciona una o más especialidades" name="especialidad[]"
+                        style="width: 100%;">
+                  @foreach ($especialidades as $especialidad)
+                  @php($bandera = 0)
+                    @foreach($usuario->specialty as $espe)
+                      @if($espe->id == $especialidad->id)
+                        <option value="{{ $especialidad->id }}" selected>{{ $especialidad->especialidad }}</option>
+                        @php($bandera = 1)
+                      @endif
+                    @endforeach
+                    @if($bandera ==0)
+                       <option value="{{ $especialidad->id }}">{{ $especialidad->especialidad }}</option>
+                    @endif  
+                  @endforeach
+                </select>
+              </div>
           </div>
         </div>
         <div class="box-footer">
-          {!! Form::submit('Guardar cambios', ["class" => "btn btn-primary pull-right"]) !!}
+          <button type="submit" class="btn btn-primary pull-right">Guardar</button>
           <a href="/medicos" class="btn btn-default">Cancelar</a>
         </div>
-        <!-- /.box-footer -->
-        {{Form::close()}}
+        
       </div>
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      </form>
+      <script type="text/javascript">
+        $('.select2').select2();
+
+      </script>
 
 @endsection

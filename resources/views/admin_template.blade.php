@@ -18,6 +18,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 		<!-- Theme style -->
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE//dist/css/AdminLTE.min.css')}}">
+
+		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/select2/select2.min.css')}}">
 		<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
 			page. However, you can choose any other skin. Make sure you
 			apply the skin class to the body tag so the changes take effect.
@@ -32,6 +34,7 @@
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/select2/select2.min.js')}}"></script>
 		<!--Modal Form Bower Component -->
 		<script src="{{ asset('/bower_components/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js')}}"></script>
 

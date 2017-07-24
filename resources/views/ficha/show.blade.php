@@ -9,29 +9,55 @@
 	<div class="clearfix"></div>
 </div>
 <div class="x_content">
-	<div class="col-md-6">
-		<div class="box box-solid">
-			<div class="box-body">
-				<dl class="dl-horizontal">
-					<dt>Especialidad</dt>
-					<dd>{{ $ficha->especialidad }}</dd>
-					<dt>Médico</dt>
-					<dd>{{ $ficha->medico }} </dd>
-					<dt>Paciente</dt>
-					<dd>{{ $ficha->paciente }}</dd>
-					<dt>RUN</dt>
-					<dd>{{ $ficha->rut }}</dd>
-					<dt>Sexo</dt>
-					<dd>{{ $ficha->sexo }} </dd>
-					<dt>Observación</dt>
-					<dd>{{ $ficha->observacion }} </dd>
-				</dl>
+	<div class="col-sm-4">
+		<div class="box box-primary">
+		 <div class="panel-heading">Médico</div>
+			<div class="box-body box-profile">
+
+				<h3 class="profile-username text-center">{{ $ficha->doctor->nombres }} {{ $ficha->doctor->paterno }}</h3>
+
+			  <p class="text-muted text-center">{{ $ficha->fespecialidad->especialidad }}</p>
+
+			  <ul class="list-group list-group-unbordered">
+				<li class="list-group-item">
+				  <b>RUN</b> <a class="pull-right">{{ $ficha->doctor->run }}</a>
+				</li>
+			  </ul>
+			  <strong><i class="fa fa-book margin-r-5"></i> Comentarios</strong>
+
+			  <p class="text-muted">
+				{{ $ficha->doctor->comentarios }}
+			  </p>
 			</div>
 			<!-- /.box-body -->
-		</div>
+		  </div>
+	</div>
+	<div class="col-sm-4">
+	<div class="box box-primary">
+		 <div class="panel-heading">Paciente</div>
+			<div class="box-body box-profile">
+
+			  <h3 class="profile-username text-center">{{ $ficha->paciente }}</h3>
+
+			  <ul class="list-group list-group-unbordered">
+				<li class="list-group-item">
+				  <b>RUN</b> <a class="pull-right">{{ $ficha->rut }}</a>
+				</li>
+				<li class="list-group-item">
+				  <b>Sexo</b> <a class="pull-right">{{ $ficha->sexo }}</a>
+				</li>
+			  </ul>
+			  <strong><i class="fa fa-book margin-r-5"></i> Comentarios</strong>
+
+			  <p class="text-muted">
+				{{ $ficha->observacion }}
+			  </p>
+			</div>
+			<!-- /.box-body -->
+		  </div>
 	<!-- /.box -->
 	</div>
-	<div class="col-md-6">
+	<div class="col-sm-4">
 		<div class="box box-solid">
 			<div class="box-body">
 				<dl class="dl-horizontal">
@@ -47,7 +73,8 @@
 		</div>
 	<!-- /.box -->
 	</div>
-	<div class="col-md-8">
+	<div class="row">
+		<div class="col-md-8">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Teléfonos</h2>
@@ -97,6 +124,7 @@
 				@endif
 			</form>
 		</div>
+	</div>
 	</div>
 </div>
 @endsection
