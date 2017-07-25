@@ -44,6 +44,7 @@
 					<table id="example1" class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th>Id</th>
 								<th>Especialidad</th>
 								<th>Médico</th>
 								<th>Fecha</th>
@@ -57,6 +58,7 @@
 						</thead>
 						<tfoot>
 							<tr>
+								<th>Id</th>
 								<th>Especialidad</th>
 								<th>Medico</th>
 								<th>Fecha</th>
@@ -102,6 +104,7 @@
 				serverSide: true,
 				ajax: 'ficha/listar',
 				columns: [
+					{ data: "id", name: "formularios.id" },
 					{ data: "fespecialidad.especialidad", name: "fespecialidad.especialidad" },
 					{ data: "doctor.nombres", name: "doctor.nombres"},
 					{ data: "fecha", name: "fecha"},
@@ -139,7 +142,7 @@
 				initComplete: function () {
 					this.api().columns().every( function () {
 						var column = this;
-						if($(this).selector.cols<2 || $(this).selector.cols==5|| $(this).selector.cols==7){
+						if($(this).selector.cols<3 || $(this).selector.cols==6|| $(this).selector.cols==8){
 							var select = $('<select><option value=""></option></select>')
 								.appendTo( $(column.footer()).empty() )
 								.on( 'change', function () {

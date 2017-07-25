@@ -179,7 +179,6 @@
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery.fileupload.js')}}"></script>
 		<!--Modal Form Bower Component -->
 		<script src="{{ asset('/bower_components/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js')}}"></script>
-		<script src="{{ asset('js/app.js') }}"></script>
 		<!-- Optionally, you can add Slimscroll and FastClick plugins.
 			Both of these plugins are recommended to enhance the
 			user experience. Slimscroll is required when using the
