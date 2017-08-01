@@ -20,4 +20,8 @@ class Ficha extends Model
         return $this->hasOne('App\Specialty','id','specialty');
     }
 
+		public function estado(){
+				return $this->hasOne('App\Status','id','estado');
+		}
+
 }

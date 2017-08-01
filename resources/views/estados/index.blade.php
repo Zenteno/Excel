@@ -15,9 +15,9 @@
     <div class="box box-info">
 			@include('flash::message')
       <div class="box-header">
-        <h3 class="box-title">Especialidades Medicas</h3>
+        <h3 class="box-title">Estados de Fichas</h3>
         <button type="button" class="btn btn-success bootstrap-modal-form-open" data-toggle="modal" data-target="#createmodal">
-            <i class="fa fa-plus"></i> Nueva
+            <i class="fa fa-plus"></i> Nuevo
         </button>
       </div>
       <!-- /.box-header -->
@@ -25,19 +25,21 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th WIDTH="60">Cod. Especialidad</th>
-              <th class="text-center">Especialidad</th>
+              <th WIDTH="55">ID</th>
+              <th class="text-center" width="70">Estado</th>
+							<th class="text-center">Descripción</th>
               <th width="50" class="text-center">Acción</th>
             </tr>
           </thead>
 					<tbody>
-    @foreach($especialidades as $especialidad)
+    @foreach($estados as $estado)
         <tr>
-            <td class="">{{ $especialidad->id}}</td>
-						<td class="text-center">{{ $especialidad->especialidad }}</td>
- 					{!! Form::open(['route' => ['especialidades.destroy', $especialidad->id], 'method' => 'DELETE']) !!}
-            	<td class="text-center">
-								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Especialidad: {{$especialidad->especialidad}}?'>
+            <td class="">{{ $estado->id}}</td>
+						<td class="text-center">{{ $estado->estado }}</td>
+						<th class="text-center">{{$estado->descripcion}}</th>
+ 					{!! Form::open(['route' => ['estados.destroy', $estado->id], 'method' => 'DELETE']) !!}
+							<td class="text-center">
+								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar estado: {{$estado->estado}}?'>
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
 								</button>
             	</td>
@@ -48,8 +50,9 @@
   				</tbody>
           <tfoot>
             <tr>
-              <th WIDTH="60">Cod. Especialidad</th>
-              <th class="text-center">Especialidad</th>
+							<th WIDTH="55">ID</th>
+              <th class="text-center" width="70">Estado</th>
+							<th class="text-center">Descripción</th>
               <th width="50" class="text-center">Acción</th>
             </tr>
           </tfoot>
@@ -63,23 +66,29 @@
 
 <!-- Modal -->
 <div id="createmodal" class="modal fade" role="dialog">
-	{!! Form::model($especialidades, ['method' => 'POST','route' => 'especialidades.store', 'class'=>'bootstrap-modal-form']) !!}
+	{!! Form::model($estados, ['method' => 'POST','route' => 'estados.store', 'class'=>'bootstrap-modal-form']) !!}
   <div class="modal-dialog" role="document">
 
     	<!-- Modal content-->
     	<div class="modal-content">
       	<div class="modal-header">
         <!--	<button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        	<h4 class="modal-title">Agregar Nueva Especialidad Médica</h4>
+        	<h4 class="modal-title">Agregar Nuevo estado</h4>
     		</div>
       	<div class="modal-body">
         	<div class="form-group row">
-          	<label for="especialidad" class="col-sm-2 control-label">Especialidad:</label>
+          	<label for="especialidad" class="col-sm-2 control-label">Nuevo estado:</label>
           	<div class="col-sm-10">
-            	<input type="text" class="form-control" name="especialidad"  required placeholder="Medicina Interna">
+            	<input type="text" class="form-control" name="estado"  required placeholder="Agendado">
           	</div>
+      		</div>
+					<div class="form-group row">
+            {{Form::label('Descripcion','Descripción:',['class'=>'col-sm-3 col-form-label'])}}
+            <div class="col-sm-12">
+               <textarea class="form-control" rows="2" name="descripcion" required placeholder="Fichas que tienen un horario confirmado"></textarea>
+            </div>
         	</div>
-      	</div>
+        </div>
       	<div class="modal-footer">
         	{!! Form::submit('Guardar', ["class" => "btn btn-primary pull-right"]) !!}
         	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
