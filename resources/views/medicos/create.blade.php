@@ -32,16 +32,6 @@
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 control-label">Apellido Paterno</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" name="paterno" required placeholder="Apelido Paterno">
-          </div>
-          <label for="inputEmail3" class="col-sm-2 control-label">Apellido Materno</label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" name="materno" required placeholder="Apellido Materno">
-          </div>
-        </div>
-        <div class="form-group row">
 
         </div>
         <div class="form-group row">

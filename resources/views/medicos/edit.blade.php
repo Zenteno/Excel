@@ -17,7 +17,7 @@ resize: vertical;
   <div class="col-md-12">
     @include('flash::message')
       <div class="x_title">
-        <h2>Médico: {{ $medicos->paterno }} {{ $medicos->materno }}, {{ $medicos->nombres }}</h2>
+        <h2>Médico: {{ $medicos->nombres }}</h2>
         <div class="clearfix"></div>
       </div>
 
