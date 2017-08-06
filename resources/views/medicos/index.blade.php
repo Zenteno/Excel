@@ -46,7 +46,7 @@
         <tr>
             <td class="">{{ $medico->specialty->especialidad}}</td>
 						<td class="">{{ $medico->run }}</td>
-            <td class="">{{ $medico->paterno }} {{ $medico->materno }}, {{ $medico->nombres }}</td>
+            <td class="">{{ $medico->nombres }}</td>
 						<td class="">{{ $medico->comentarios }}</td>
 
  					{!! Form::open(['route' => ['medicos.destroy', $medico->id], 'method' => 'DELETE']) !!}

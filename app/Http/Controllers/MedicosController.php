@@ -24,8 +24,8 @@ class MedicosController extends Controller
   {
 
 	//  $medicos = Doctor::get();
-	  $medicos= Doctor::select(["id","run","nombres","paterno","materno","especialidad_id","comentarios"])->get();
-	  $medicos = Doctor::orderBy('especialidad_id', 'asc')->paginate();
+	  $medicos= Doctor::select(["id","run","nombres","especialidad_id","comentarios"])->get();
+	  //$medicos = Doctor::orderBy('especialidad_id', 'asc')->paginate();
 	  return view('medicos.index')->with('medicos',$medicos);
   }
 
@@ -52,8 +52,6 @@ class MedicosController extends Controller
 	 $medico = Doctor::create([
 			  'run'         => $request->get('run'),
 			 'nombres'      => $request->get('nombres'),
-			 'paterno'      => $request->get('paterno'),
-			 'materno'      => $request->get('materno'),
 			 'especialidad_id' => $request->get('especialidad_id'),
 			 'comentarios'     => $request->get('comentarios'),
 			 ]);

@@ -15,10 +15,8 @@ class CreateDoctorsTable extends Migration
      {
        Schema::create('doctors', function (Blueprint $table) {
            $table->increments('id');
-           $table->string('run',10);
-           $table->string('nombres',30);
-           $table->string('paterno',20);
-           $table->string('materno',20);
+           $table->string('run',10)->nullable();
+           $table->string('nombres',50);
            $table->integer('especialidad_id')->unsigned();
            $table->string('comentarios',500);
            $table->foreign('especialidad_id')->references('id')->on('specialties')->onDelete('cascade');

@@ -102,7 +102,7 @@
 			var tabla = $('#example1').DataTable( {
 				processing: true,
 				serverSide: true,
-				ajax: 'ficha/listar',
+				ajax: '/ficha/listar',
 				columns: [
 					{ data: "id", name: "formularios.id" },
 					{ data: "fespecialidad.especialidad", name: "fespecialidad.especialidad" },
