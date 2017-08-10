@@ -14,7 +14,7 @@
 		 <div class="panel-heading">Médico</div>
 			<div class="box-body box-profile">
 
-				<h3 class="profile-username text-center">{{ $ficha->doctor->nombres }} {{ $ficha->doctor->paterno }}</h3>
+				<h3 class="profile-username text-center">{{ $ficha->doctor->nombres }}</h3>
 
 			  <p class="text-muted text-center">{{ $ficha->fespecialidad->especialidad }}</p>
 
@@ -45,6 +45,9 @@
 				</li>
 				<li class="list-group-item">
 				  <b>Sexo</b> <a class="pull-right">{{ $ficha->sexo }}</a>
+				</li>
+				<li class="list-group-item">
+				  <b>Edad</b> <a class="pull-right">{{ $ficha->edad }}</a>
 				</li>
 			  </ul>
 			  <strong><i class="fa fa-book margin-r-5"></i> Comentarios</strong>

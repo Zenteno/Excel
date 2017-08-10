@@ -50,9 +50,8 @@
 								<th>Fecha</th>
 								<th>Paciente</th>
 								<th>RUN</th>
-								<th>Sexo</th>
 								<th>Obs</th>
-								<th>Ejecutiva</th>
+								<th>Estado</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -64,9 +63,8 @@
 								<th>Fecha</th>
 								<th>Paciente</th>
 								<th>RUN</th>
-								<th>Sexo</th>
 								<th>Obs</th>
-								<th>Ejecutiva</th>
+								<th>Estado</th>
 								<th>Action</th>
 							</tr>
 						</tfoot>
@@ -110,9 +108,8 @@
 					{ data: "fecha", name: "fecha"},
 					{ data: "paciente", name: "paciente"},
 					{ data: "rut", name: "rut"},
-					{ data: "sexo", name: "sexo"},
 					{ data: "observacion", name: "observacion"},
-					{ data: "ejecutiva", name: "ejecutiva"},
+					{ data: "festado.estado", name: "festado.estado"},
 					{ data: 'action', name: 'action', orderable: false, searchable: false}
 				],
 				language: {

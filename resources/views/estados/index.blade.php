@@ -36,7 +36,7 @@
         <tr>
             <td class="">{{ $estado->id}}</td>
 						<td class="text-center">{{ $estado->estado }}</td>
-						<th class="text-center">{{$estado->descripcion}}</th>
+						<td class="text-center">{{$estado->descripcion}}</td>
  					{!! Form::open(['route' => ['estados.destroy', $estado->id], 'method' => 'DELETE']) !!}
 							<td class="text-center">
 								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar estado: {{$estado->estado}}?'>

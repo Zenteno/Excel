@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ficha extends Model
 {
 	protected $table = 'formularios';
-	protected $fillable = ["specialty","medico","fecha","paciente","rut","sexo","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva"];
+	protected $fillable = ["specialty","medico","fecha","paciente","rut","sexo","edad","prestacion","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva","estado"];
 
 	public function setFechaAttribute($value){
     	$this->attributes['fecha'] = date("Y-m-d", strtotime($value));
@@ -20,7 +20,7 @@ class Ficha extends Model
         return $this->hasOne('App\Specialty','id','specialty');
     }
 
-		public function estado(){
+		public function festado(){
 				return $this->hasOne('App\Status','id','estado');
 		}
 

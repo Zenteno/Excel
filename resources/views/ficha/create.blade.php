@@ -21,22 +21,23 @@
 			<form class="form-horizontal" action="/ficha" method="POST">
 				<div class="box-body">
 					<div class="form-group row">
-			          {{Form::label('especialidad','Especialidad:',['class'=>'col-sm-2 control-label'])}}
+			          {{Form::label('especialidad','Especialidad',['class'=>'col-sm-2 control-label'])}}
 			          <div class="col-sm-10">
 			            {!!Form::select('specialty', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required'])!!}
 			          </div>
-			        </div>
+			    </div>
 					<div class="form-group row">
-			          {{Form::label('medico','Médico:',['class'=>'col-sm-2 control-label'])}}
+			          {{Form::label('medico','Médico',['class'=>'col-sm-2 control-label'])}}
 			          <div class="col-sm-10">
 			            {!!Form::select('medico', $medicos->pluck('nombres','id'), null,['placeholder'=>'Selecciona un Médico','class' => 'form-control' ,'required'])!!}
 			          </div>
-			        </div>
-					
+			   	</div>
+
+
 					<div class="bootstrap-timepicker">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Hora:</label>
-							<div class="input-group col-sm-10 infecha">
+							<label class="col-sm-2 control-label">Hora</label>
+							<div class="input-group infecha">
 								<div class="input-group-addon">
 									<i class="fa fa-clock-o"></i>
 								</div>
@@ -44,9 +45,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Fecha:</label>
-						<div class="input-group date col-sm-10 infecha">
+
+					<div class="form-group row">
+						<label class="col-sm-2 control-label">Fecha</label>
+						<div class="input-group date col-sm-4 infecha">
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</div>
@@ -54,28 +56,40 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">Paciente</label>
-						<div class="col-sm-10">
+						<div class="col-sm-5">
 							<input type="text" class="form-control" name="paciente" placeholder="Humberto Santana">
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Sexo</label>
-						<div class="col-sm-10">
+						<label for="inputEmail3" class="col-sm-1 control-label">Edad</label>
+						<div class="col-sm-1">
+							<input type="text" class="form-control" name="edad" placeholder="18">
+						</div>
+						<label for="inputEmail3" class="col-sm-1 control-label">Sexo</label>
+						<div class="col-sm-2">
 							<select class="form-control" name="sexo">
 								<option value="Hombre">Hombre</option>
 								<option value="Mujer">Mujer</option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">RUN</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="rut" placeholder="11.111.111-1">
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group row">
+						<label for="inputEmail3" class="col-sm-2 control-label">Prestación</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" name="prestacion" placeholder="Interconsulta">
+						</div>
+						<label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
+						<div class="col-sm-4">
+							 {!!Form::select('estado', $estados->pluck('estado','id'), null,['selected'=>'Pendiente','class' => 'form-control' ,'required'])!!}
+						</div>
+					</div>
+					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">Ejecutivo</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="ejecutiva" placeholder="María Arredondo">

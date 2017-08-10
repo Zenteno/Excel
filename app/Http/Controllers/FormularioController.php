@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use PHPExcel;
-use PHPExcel_IOFactory; 
+use PHPExcel_IOFactory;
 use Datatables;
 
 use Auth;
 use App\Ficha;
 use App\Doctor;
 use App\Specialty;
+use App\Status;
 
 class FormularioController extends Controller
 {
@@ -28,9 +29,12 @@ class FormularioController extends Controller
 
   public function create()
   {
-  	$medicos = Doctor::All();
+  $medicos = Doctor::All();
 	$especialidades = Specialty::All();
-	return view('ficha.create', ['medicos' => $medicos], ['especialidades' => $especialidades]);
+  $estados = Status::All();
+	return view('ficha.create')->with('medicos',$medicos)
+                             ->with('especialidades',$especialidades)
+                             ->with('estados',$estados);
   }
   public function store(Request $request){
 
@@ -41,9 +45,9 @@ class FormularioController extends Controller
 
   	public function show($id)
  	{
-		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad')->first();
+		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado')->first();
 		return view('ficha.show')->with('ficha',$ficha);
-  	}			
+  	}
 
 	public function listar(Request $request){
 		$especialidades = Auth::user();
@@ -51,42 +55,52 @@ class FormularioController extends Controller
 		$aux = [];
 		foreach ($especialidades as $especialidad)
 			$aux[] = $especialidad->id;
-		$fichas = Ficha::whereIn('specialty',$aux)->with('doctor','fespecialidad');
+		$fichas = Ficha::whereIn('specialty',$aux)->with('doctor','fespecialidad','festado');
 		return Datatables::of($fichas)->addColumn('action', function ($fichas) {
 				return '<a href="ficha/'.$fichas->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Detalles</a>';
 			})->make(true);
 	}
 
 	public function archivo(Request $request){
-		if ($request->hasFile('file')) {
-			$file = $request->file('file');
+    if ($request->hasFile('file')) {
+      $file = $request->file('file');
 			$nombre = $file->getClientOriginalName();
 			$file->storeAs('public/',$nombre);
 			$objPHPExcel = PHPExcel_IOFactory::load("storage/".$nombre);
 			$objWorksheet = $objPHPExcel->getActiveSheet();
 			$datos = $objWorksheet->toArray(null, true, true, true);
 			unset($datos[1]);
-			foreach ($datos as $dato ) {
+      foreach ($datos as $dato ) {
 				if($dato["E"]==null)
 					continue;
 				$arreglo = [
-					"especialidad"=> $dato["A"],
-					"medico"=>$dato["B"] ,
 					"fecha"=> $dato["D"]." ".$dato["C"],
 					"paciente"=> $dato["E"],
 					"rut"=> $dato["F"],
-					"sexo"=> $dato["G"],
-					"observacion"=> $dato["I"],
-					"intento1"=> $dato["J"],
-					"intento2"=> $dato["K"],
-					"intento3"=> $dato["L"],
-					"ejecutiva"=> $dato["M"]
+					"sexo"=> $dato["H"],
+					"prestacion"=> $dato["J"],
+					"observacion"=> $dato["K"],
+					"intento1"=> $dato["L"],
+					"intento2"=> $dato["M"],
+          "intento3"=> $dato["N"]
 				];
-				$telefonos = explode("/", $dato["H"]);
-				for($i=1;$i<=count($telefonos) && $i<=3;$i++)
+        $especialidad=str_replace('.', "",explode(' ',$dato["A"]));
+        $medico=explode(" ",$dato["B"]);
+        for($c=1;$c<count($medico);$c++)
+        $dato = Doctor::where('nombres','like',$medico[$c-1].'%')
+                      ->where('nombres','like','%'.$medico[$c].'%')
+                      ->first();
+        $arreglo["medico"]=$dato->id;
+        $arreglo["specialty"]=$dato->especialidad_id;
+        $arreglo["edad"]=explode( ' ', $dato["G"])[0];
+        $telefonos = explode("/", $dato["I"]);
+        for($i=1;$i<=count($telefonos) && $i<=3;$i++)
 					$arreglo["fono".$i] = trim($telefonos[$i-1]);
+        $estadoPorDefecto=Status::where('estado','Pendiente')->first();
+        $arreglo["estado"]=$estadoPorDefecto->id;
 				Ficha::create($arreglo);
 			}
+
 			flash('Datos Cargados Exitosamente');
 			return $arreglo;
 		}

@@ -17,9 +17,11 @@ class EditaForm extends Migration
 
             $table->integer('medico')->unsigned();
             $table->integer('specialty')->unsigned();
-            
+            $table->integer('estado')->unsigned();
+
             $table->foreign('medico')->references('id')->on('doctors');
             $table->foreign('specialty')->references('id')->on('specialties');
+            $table->foreign('estado')->references('id')->on('states');
         });
     }
 

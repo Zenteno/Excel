@@ -19,6 +19,8 @@ class CreateFormularioTable extends Migration
             $table->string("paciente",100);
             $table->string("rut",40);
             $table->string("sexo",10);
+            $table->string("edad",3);
+            $table->string("prestacion",100);
             $table->string("fono1",40)->nullable();
             $table->string("fono2",40)->nullable();
             $table->string("fono3",40)->nullable();
@@ -26,7 +28,7 @@ class CreateFormularioTable extends Migration
             $table->string("intento1",40)->nullable();
             $table->string("intento2",40)->nullable();
             $table->string("intento3",40)->nullable();
-            $table->string("ejecutiva",100);
+            $table->string("ejecutiva",100)->nullable();
             $table->timestamps();
 
         });
