@@ -23,13 +23,13 @@
 					<div class="form-group row">
 			          {{Form::label('especialidad','Especialidad',['class'=>'col-sm-2 control-label'])}}
 			          <div class="col-sm-10">
-			            {!!Form::select('specialty', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required'])!!}
+									{!!Form::select('specialty', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required', 'id'=>'specialty'])!!}
 			          </div>
 			    </div>
 					<div class="form-group row">
 			          {{Form::label('medico','Médico',['class'=>'col-sm-2 control-label'])}}
 			          <div class="col-sm-10">
-			            {!!Form::select('medico', $medicos->pluck('nombres','id'), null,['placeholder'=>'Selecciona un Médico','class' => 'form-control' ,'required'])!!}
+			           {!!Form::select('medico', ['0'=>'Seleccione un Médico'],null,['class' => 'form-control' ,'required', 'id'=>'medicos'])!!}
 			          </div>
 			   	</div>
 
@@ -82,7 +82,7 @@
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">Prestación</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" name="prestacion" placeholder="Interconsulta">
+							<input type="text" class="form-control" required name="prestacion" placeholder="Interconsulta">
 						</div>
 						<label for="inputEmail3" class="col-sm-2 control-label">Estado</label>
 						<div class="col-sm-4">
@@ -146,5 +146,53 @@
 			showMeridian: false
 		});
 
+				$(document).ready(function(){
+					$(document).on('change','#specialty',function(){
+						var especialidad_id=$(this).val();
+						var div=$(this).parent();
+            var op=" ";
+
+						console.log(especialidad_id);
+						$.ajax({
+							type:'get',
+							url: '{!!URL::to('ficha/getMedicos')!!}',
+							data:{'id':especialidad_id},
+							dataType: 'json',
+							success:function(data){
+                    console.log('success');
+                    console.log(data);
+
+                    console.log(data.length);
+										$('#medicos').empty();
+                op+='<option value="0" selected disabled>Seleccione un Médico</option>';
+                for(var i=0;i<data.length;i++){
+                	op+='<option value="'+data[i].id+'">'+data[i].nombres+'</option>';
+              	}
+								$("#medicos").append(op);
+
+              },
+							error:function(){
+							}
+						});
+					});
+				});
+
 	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection

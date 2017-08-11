@@ -21,6 +21,7 @@ Route::resource('estados', 'EstadosController');
 
 Route::post('ficha/archivo','FormularioController@archivo');
 Route::get('ficha/listar','FormularioController@listar');
+Route::get('ficha/getMedicos','FormularioController@getMedicos');
 
 Route::resource('ficha','FormularioController');
 

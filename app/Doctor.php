@@ -13,5 +13,10 @@ class Doctor extends Model
     {
         return $this->belongsTo('App\Specialty','especialidad_id');
     }
+    public static function medicosPorEspecialidad($id){
+        return Doctor::select('id','nombres')
+                       ->where('especialidad_id',$id)
+                       ->get();
+    }
 
 }

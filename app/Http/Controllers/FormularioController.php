@@ -29,11 +29,9 @@ class FormularioController extends Controller
 
   public function create()
   {
-  $medicos = Doctor::All();
 	$especialidades = Specialty::All();
   $estados = Status::All();
-	return view('ficha.create')->with('medicos',$medicos)
-                             ->with('especialidades',$especialidades)
+	return view('ficha.create')->with('especialidades',$especialidades)
                              ->with('estados',$estados);
   }
   public function store(Request $request){
@@ -84,15 +82,14 @@ class FormularioController extends Controller
 					"intento2"=> $dato["M"],
           "intento3"=> $dato["N"]
 				];
-        $especialidad=str_replace('.', "",explode(' ',$dato["A"]));
         $medico=explode(" ",$dato["B"]);
         for($c=1;$c<count($medico);$c++)
-        $dato = Doctor::where('nombres','like',$medico[$c-1].'%')
-                      ->where('nombres','like','%'.$medico[$c].'%')
-                      ->first();
-        $arreglo["medico"]=$dato->id;
-        $arreglo["specialty"]=$dato->especialidad_id;
-        $arreglo["edad"]=explode( ' ', $dato["G"])[0];
+          $aux = Doctor::where('nombres','like',$medico[$c-1].'%')
+                          ->where('nombres','like','%'.$medico[$c].'%')
+                          ->first();
+        $arreglo["medico"]=$aux->id;
+        $arreglo["specialty"]=$aux->especialidad_id;
+        $arreglo["edad"]=explode(" ",$dato["G"])[0];
         $telefonos = explode("/", $dato["I"]);
         for($i=1;$i<=count($telefonos) && $i<=3;$i++)
 					$arreglo["fono".$i] = trim($telefonos[$i-1]);
@@ -102,8 +99,16 @@ class FormularioController extends Controller
 			}
 
 			flash('Datos Cargados Exitosamente');
-			return $arreglo;
+			//return $arreglo;
 		}
 		return;
 	}
+
+// Funcion para enviar datos de medicos pertenecientes a una especialidad.
+  public function getMedicos(Request $request){
+    if($request->ajax()){
+      $medicos=Doctor::medicosPorEspecialidad($request->id);
+      return response()->json($medicos);
+    }
+  }
 }
