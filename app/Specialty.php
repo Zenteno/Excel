@@ -17,7 +17,7 @@ class Specialty extends Model
     	return $this->belongsToMany(
             'App\User', 'specialty_user',
             'especialidad', 'usuario'
-        );    
+        );
     }
-    
+
 }

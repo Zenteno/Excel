@@ -13,6 +13,9 @@ use App\Ficha;
 use App\Doctor;
 use App\Specialty;
 use App\Status;
+use App\User;
+use App\Spe_user;
+
 
 class FormularioController extends Controller
 {
@@ -48,8 +51,11 @@ class FormularioController extends Controller
   	}
 
 	public function listar(Request $request){
-		$especialidades = Auth::user();
-		$especialidades = $especialidades->specialty()->get();
+    $user_id = Auth::id();
+    $especialidades=Spe_user::especialidadesPorUser($user_id);
+    //$especialidades = Auth::user();
+    //return $especialidades;
+		//$especialidades = $especialidades->specialty()->get();
 		$aux = [];
 		foreach ($especialidades as $especialidad)
 			$aux[] = $especialidad->id;

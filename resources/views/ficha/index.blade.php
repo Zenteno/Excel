@@ -50,7 +50,6 @@
 								<th>Fecha</th>
 								<th>Paciente</th>
 								<th>RUN</th>
-								<th>Obs</th>
 								<th>Estado</th>
 								<th>Action</th>
 							</tr>
@@ -63,7 +62,6 @@
 								<th>Fecha</th>
 								<th>Paciente</th>
 								<th>RUN</th>
-								<th>Obs</th>
 								<th>Estado</th>
 								<th>Action</th>
 							</tr>
@@ -108,7 +106,6 @@
 					{ data: "fecha", name: "fecha"},
 					{ data: "paciente", name: "paciente"},
 					{ data: "rut", name: "rut"},
-					{ data: "observacion", name: "observacion"},
 					{ data: "festado.estado", name: "festado.estado"},
 					{ data: 'action', name: 'action', orderable: false, searchable: false}
 				],

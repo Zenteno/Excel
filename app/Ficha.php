@@ -24,4 +24,9 @@ class Ficha extends Model
 				return $this->hasOne('App\Status','id','estado');
 		}
 
+		public static function fichasPorEspecialiad($id){
+			return Ficha::where('specialty',$id)
+										 ->get();
+	 }
+
 }
