@@ -44,7 +44,7 @@
 					<table id="example1" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Id</th>
+								<th>#</th>
 								<th>Especialidad</th>
 								<th>Médico</th>
 								<th>Fecha</th>
@@ -54,18 +54,6 @@
 								<th>Action</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>Id</th>
-								<th>Especialidad</th>
-								<th>Medico</th>
-								<th>Fecha</th>
-								<th>Paciente</th>
-								<th>RUN</th>
-								<th>Estado</th>
-								<th>Action</th>
-							</tr>
-						</tfoot>
 					</table>
 				</div>
 			</div>
@@ -132,38 +120,6 @@
 				        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 				    }
-				},
-				initComplete: function () {
-					this.api().columns().every( function () {
-						var column = this;
-						if($(this).selector.cols<3 || $(this).selector.cols==6|| $(this).selector.cols==8){
-							var select = $('<select><option value=""></option></select>')
-								.appendTo( $(column.footer()).empty() )
-								.on( 'change', function () {
-									var val = $.fn.dataTable.util.escapeRegex(
-										$(this).val()
-									);
-
-									column
-										.search( val ? '^'+val+'$' : '', true, false )
-										.draw();
-								} );
-
-							column.data().unique().sort().each( function ( d, j ) {
-								select.append( '<option value="'+d+'">'+d+'</option>' )
-							} );
-						}
-						else {
-							var input = document.createElement('input');
-							$(input).appendTo($(column.footer()).empty())
-							.css('width','100%')
-							.on('change', function () {
-								var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-								column.search(val ? val : '', true, false).draw();
-							});
-						}
-					} );
 				}
 			} );
 		} );
