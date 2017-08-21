@@ -5,7 +5,7 @@
 <div class="col-md-12">
 <div class="x_panel">
 <div class="x_title">
-	<h2>Detalle #{{ $ficha->id }}</h2>
+	<h2>Detalle Ficha #{{ $ficha->id }}</h2>
 	<div class="clearfix"></div>
 </div>
 <div class="x_content">
@@ -31,7 +31,21 @@
 			</div>
 			<!-- /.box-body -->
 		  </div>
+
+			<div class="box box-primary">
+			 <div class="panel-heading">Reserva</div>
+				<div class="box-body box-profile">
+					<ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+						<b>Fecha-Hora de Reserva:</b> <a class="pull-right">{{ $ficha->fecha }}</a>
+					</li>
+					</ul>
+				</div>
+				<!-- /.box-body -->
+				</div>
 	</div>
+
+
 	<div class="col-sm-4">
 	<div class="box box-primary">
 		 <div class="panel-heading">Paciente</div>
@@ -49,6 +63,9 @@
 				<li class="list-group-item">
 				  <b>Edad</b> <a class="pull-right">{{ $ficha->edad }}</a>
 				</li>
+				<li class="list-group-item">
+				  <b>Prestacion</b> <a class="pull-right">{{ $ficha->prestacion }}</a>
+				</li>
 			  </ul>
 			  <strong><i class="fa fa-book margin-r-5"></i> Comentarios</strong>
 
@@ -62,19 +79,31 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="box box-solid">
+			<div class="panel-heading">Intentos de contacto</div>
 			<div class="box-body">
 				<dl class="dl-horizontal">
-					<dt>Intento 1</dt>
+					<dt>Intento 1:</dt>
 					<dd>{{ $ficha->intento1 }}</dd>
-					<dt>Intento 2</dt>
+					<dt>Intento 2:</dt>
 					<dd>{{ $ficha->intento2 }} </dd>
-					<dt>Intento 3</dt>
+					<dt>Intento 3:</dt>
 					<dd>{{ $ficha->intento3 }}</dd>
 				</dl>
 			</div>
 			<!-- /.box-body -->
 		</div>
 	<!-- /.box -->
+	<div class="box box-solid">
+		<div class="box-body">
+			<ul class="list-group list-group-unbordered">
+				<li class="list-group-item">
+				  <b>Estado de Ficha</b><a class="pull-right">{{ $ficha->festado->estado }}</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /.box-body -->
+	</div>
+<!-- /.box -->
 	</div>
 	<div class="row">
 		<div class="col-md-8">
@@ -91,9 +120,9 @@
 					<label class="col-sm-3 control-label">{{ $ficha->fono1 }}</label>
 					<div class="col-sm-9">
 						<div class="input-group">
-							<input type="text" class="form-control">
 							<span class="input-group-btn">
-							<button type="button" class="btn btn-primary">¡Enviar!</button>
+							<button type="button" class="btn btn-sms btn-primary" value="{{ $ficha->fono1 }}" >¡Enviar sms!</button>
+							<button type="button" class="btn btn-success">¡Llamar!</button>
 							</span>
 						</div>
 					</div>
@@ -104,9 +133,9 @@
 					<label class="col-sm-3 control-label">{{ $ficha->fono2 }}</label>
 					<div class="col-sm-9">
 						<div class="input-group">
-							<input type="text" class="form-control">
 							<span class="input-group-btn">
-							<button type="button" class="btn btn-primary">¡Enviar!</button>
+							<button type="button" class="btn btn-sms btn-primary" value="{{ $ficha->fono2 }}">¡Enviar sms!</button>
+							<button type="button" class="btn btn-success">¡Llamar!</button>
 							</span>
 						</div>
 					</div>
@@ -117,9 +146,9 @@
 					<label class="col-sm-3 control-label">{{ $ficha->fono3 }}</label>
 					<div class="col-sm-9">
 						<div class="input-group">
-							<input type="text" class="form-control">
 							<span class="input-group-btn">
-							<button type="button" class="btn btn-primary">¡Enviar!</button>
+							<button type="button" class="btn btn-sms btn-primary" value="{{ $ficha->fono3 }}">¡Enviar sms!</button>
+							<button type="button" class="btn btn-success">¡Llamar!</button>
 							</span>
 						</div>
 					</div>
@@ -130,4 +159,40 @@
 	</div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$(document).on('click','.btn-sms',function(e){
+			e.preventDefault();
+			var telefono=$(this).val();
+			console.log(telefono);
+			except("<?php
+
+$datos = [];
+$datos[] = [
+    "destination" => telefono,
+    "field" => "holito"
+    ];
+$post = [
+    'bulkName' => 'REST',
+    'message' => 'que pasa lucas! (enviado con desde el sistema zhorizo excel)',
+    'message_details'   => $datos,
+];
+try {
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://sms.lanube.cl/services/rest/send');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+	curl_setopt($ch, CURLOPT_USERPWD, "KROPSYS:KROPSYS");
+	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($ch, CURLOPT_POST, true);
+	$response = curl_exec($ch);
+	var_export($response);
+} catch (Exception $e) {
+	var_dump($e);
+}" <?php);
+	   	});
+  });
+</script>
 @endsection

@@ -25,7 +25,7 @@ class CreateStatusRequest extends FormRequest
     {
       return [
 
-          'estado' => 'required|string|max:20|unique:states',
+          'estado' => 'unique:states|required|string|max:20',
           'descripcion' => 'required|string|max:200'
 
       ];

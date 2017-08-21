@@ -24,5 +24,5 @@ Route::get('ficha/listar','FormularioController@listar');
 Route::get('ficha/getMedicos','FormularioController@getMedicos');
 
 Route::resource('ficha','FormularioController');
-
+Route::resource('sms','MensajeriaController');
 Auth::routes();

@@ -100,7 +100,7 @@ class FormularioController extends Controller
 		        $telefonos = explode("/", $dato["I"]);
         		for($i=1;$i<=count($telefonos) && $i<=3;$i++)
 					$arreglo["fono".$i] = trim($telefonos[$i-1]);
-        		$estadoPorDefecto=Status::where('estado','Pendiente')->first();
+        		$estadoPorDefecto=Status::where('estado','Por Asignar')->first();
         		$arreglo["estado"]=$estadoPorDefecto->id;
 				Ficha::create($arreglo);
 			}
@@ -117,4 +117,5 @@ class FormularioController extends Controller
       return response()->json($medicos);
     }
   }
+
 }
