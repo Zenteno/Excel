@@ -52,7 +52,7 @@
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</div>
-							<input type="text" class="form-control pull-right" id="datepicker" name="fecha">
+							<input type="text" class="form-control pull-right datepicker" id="datepicker" name="fecha">
 						</div>
 					</div>
 
@@ -68,15 +68,15 @@
 						<label for="inputEmail3" class="col-sm-1 control-label">Sexo</label>
 						<div class="col-sm-2">
 							<select class="form-control" name="sexo">
-								<option value="Hombre">Hombre</option>
-								<option value="Mujer">Mujer</option>
+								<option value="Masculino">Masculino</option>
+								<option value="Femenino">Femenino</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">RUN</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="rut" placeholder="11.111.111-1">
+							<input type="text" class="form-control" name="rut" placeholder="11111111-1">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -127,7 +127,7 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<!-- /.box-body -->
 				<div class="box-footer">
-					<a href="/home" class="btn btn-default">Cancelar</a>
+					<a href="/" class="btn btn-default">Cancelar</a>
 					<button type="submit" class="btn btn-primary pull-right">Guardar</button>
 				</div>
 				<!-- /.box-footer -->
@@ -139,7 +139,9 @@
 	</div>
 	<script type="text/javascript">
 		$('#datepicker').datepicker({
-			autoclose: true
+			autoclose: true,
+			format: "yyyy/dd/mm",
+			language: "es"
 		});
 		$('.timepicker').timepicker({
 			showInputs: false,

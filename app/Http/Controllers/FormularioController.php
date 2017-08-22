@@ -47,7 +47,8 @@ class FormularioController extends Controller
   	public function show($id)
  	{
 		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado')->first();
-		return view('ficha.show')->with('ficha',$ficha);
+    $estados= Status::All();
+		return view('ficha.show')->with('ficha',$ficha)->with('estados', $estados);
   	}
 
 	public function listar(Request $request){
@@ -117,5 +118,58 @@ class FormularioController extends Controller
       return response()->json($medicos);
     }
   }
+  public function mensajeria(Request $request){
+    if($request->ajax()){
+      $ficha=Ficha::find($request->ficha);
+      $fono =$request->telefono;
+      $fono=strrev($fono);
+      $fono=substr($fono,0,8);
+      $fono=strrev ($fono);
+      $datos = [];
+      $datos[] = [
+          "destination" => "569$fono",
+          "field" => "mensaje"
+          ];
+      if ($ficha->sexo == "Masculino") {
+        $post = [
+            'bulkName' => 'REST',
+            'message' => 'Estimado '.$ficha->paciente.' recuede que tiene su Hora Agendada para: '.$ficha->fecha.'hrs. con Profesional: '.$ficha->doctor->nombres.'.',
+            'message_details'   => $datos,
+        ];
+      }
+      else{
+        $post = [
+            'bulkName' => 'REST',
+            'message' => 'Estimada '.$ficha->paciente.' recuede que tiene su Hora Agendada para: '.$ficha->fecha.'hrs. con Profesional: '.$ficha->doctor->nombres.'.',
+            'message_details'   => $datos,
+        ];
+      }
 
+      try {
+      	$ch = curl_init();
+      	curl_setopt($ch, CURLOPT_URL, 'https://sms.lanube.cl/services/rest/send');
+      	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+      	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      	curl_setopt($ch, CURLOPT_USERPWD, "KROPSYS:KROPSYS");
+      	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+      	curl_setopt($ch, CURLOPT_POST, true);
+      	$response = curl_exec($ch);
+      	var_export($response);
+      } catch (Exception $e) {
+      	var_dump($e);
+        }
+    return;
+    }
+  }
+  public function changestatus(Request $request){
+    if($request->ajax()){
+      $ficha=Ficha::find($request->ficha);
+      $estado=$request->status_id;
+        $ficha->estado = $estado;
+        $ficha->save();
+        flash('Ficha Actualizada Exitosamente');
+        return response()->json('<a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>');
+    }
+  }
 }
