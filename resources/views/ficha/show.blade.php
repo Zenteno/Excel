@@ -4,6 +4,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="x_panel">
+			<a href="/" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-menu-left"></i> volver</a>
 			@include('flash::message')
 			<div class="x_title">
 				<h2>Detalle Ficha #{{ $ficha->id }}</h2>
@@ -205,7 +206,6 @@ $(document).ready(function(){
 			console.log(telefono);
 			var ficha_id ={{ $ficha->id }};
 			console.log(telefono);
-
 			$.ajax({
 				type:'post',
 				url: '{!!URL::to('ficha/mensajeria')!!}',
@@ -217,7 +217,7 @@ $(document).ready(function(){
 				error:function(){
 				}
 			});
-
+			alert("El sms ha sido enviado con éxito!");
 		});
   });
 

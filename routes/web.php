@@ -26,5 +26,4 @@ Route::post('ficha/mensajeria','FormularioController@mensajeria');
 Route::post('ficha/changestatus','FormularioController@changestatus');
 
 Route::resource('ficha','FormularioController');
-Route::resource('sms','MensajeriaController');
 Auth::routes();
