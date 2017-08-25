@@ -3,7 +3,9 @@
 @section('content')
 
 <style type="text/css">
-
+textarea {
+resize: vertical;
+}
 </style>
 
 <div class="row">

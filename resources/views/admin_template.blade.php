@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>AdminLTE 2 | Starter</title>
+		<title>Kropsys</title>
 		<!-- Tell the browser to be responsive to screen width -->
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<!-- Bootstrap 3.3.6 -->
@@ -26,13 +26,15 @@
 			-->
 
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/dist/css/skins/skin-blue.min.css')}}">
-		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/datepicker/datepicker3.css')}}">
 		<link rel="stylesheet" href="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')}}">
 
 		<!-- jQuery 2.2.3 -->
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+		<!-- Datepicker -->
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/select2/select2.min.js')}}"></script>
 		<!--Modal Form Bower Component -->
@@ -172,9 +174,20 @@
 		<script src="{{ asset('/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
 		<!-- AdminLTE App -->
 		<script src="{{ asset('/bower_components/AdminLTE/dist/js/app.min.js')}}"></script>
+		<!-- Input mask -->
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+		<!-- SlimScroll -->
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+		<!-- iCheck 1.0.1 -->
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/iCheck/icheck.min.js')}}"></script>
+		<!-- FastClick -->
+		<script src="{{ asset('/bower_components/AdminLTE/plugins/fastclick/fastclick.js')}}"></script>
 
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQueryUI/jquery-ui.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/jQuery/jquery.fileupload.js')}}"></script>
 		<!--Modal Form Bower Component -->

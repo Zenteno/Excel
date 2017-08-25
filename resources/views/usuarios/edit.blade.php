@@ -60,7 +60,7 @@
                     @endforeach
                     @if($bandera ==0)
                        <option value="{{ $especialidad->id }}">{{ $especialidad->especialidad }}</option>
-                    @endif  
+                    @endif
                   @endforeach
                 </select>
               </div>
@@ -68,9 +68,9 @@
         </div>
         <div class="box-footer">
           <button type="submit" class="btn btn-primary pull-right">Guardar</button>
-          <a href="/medicos" class="btn btn-default">Cancelar</a>
+          <a href="/usuarios" class="btn btn-default">Cancelar</a>
         </div>
-        
+
       </div>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       </form>

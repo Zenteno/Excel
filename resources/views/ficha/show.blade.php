@@ -1,6 +1,21 @@
 @extends('admin_template')
-
 @section('content')
+<style>
+	.example-modal .modal {
+		position: relative;
+		top: auto;
+		bottom: auto;
+		right: auto;
+		left: auto;
+		display: block;
+		z-index: 1;
+	}
+
+	.example-modal .modal {
+		background: transparent !important;
+	}
+</style>
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="x_panel">
@@ -196,6 +211,27 @@
 </div>
 <!-- End Modal -->
 
+<!-- modal SMS Success -->
+	<div class="modal modal-success fade" id="modalsuccess">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Servicio de Mensajeria</h4>
+				</div>
+				<div class="modal-body">
+					<p>¡El sms a sido enviado con exito!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+
 <script>
 $('div.alert').not('.alert-important').fadeIn(350).delay(2300).fadeOut(350);
 $(document).ready(function(){
@@ -217,7 +253,7 @@ $(document).ready(function(){
 				error:function(){
 				}
 			});
-			alert("El sms ha sido enviado con éxito!");
+			$('#modalsuccess').modal();
 		});
   });
 

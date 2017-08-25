@@ -109,7 +109,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
+			<!-- Elimina Ingreso de intentos al crear ficha.
+						<div class="form-group">
 						<label class="col-sm-2 control-label">Intentos</label>
 						<div class="col-sm-10">
 							<div class="col-xs-4">
@@ -124,6 +125,8 @@
 						</div>
 					</div>
 				</div>
+
+			-->
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<!-- /.box-body -->
 				<div class="box-footer">
@@ -180,21 +183,4 @@
 				});
 
 	</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

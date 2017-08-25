@@ -32,6 +32,27 @@ class EstadosController extends Controller
           flash('Nuevo Estado creado Exitosamente');
   }
 
+	public function update(Request $request)
+	{
+    if($request->ajax()){
+      $estado = Status::findOrFail($request->status_id);
+      $this->validate($request, [
+  			  'descripcion' => 'required|string|max:200',
+  		]);
+      $estado->descripcion=$request->descripcion;
+      $estado->save();
+      if($estado->save()){
+  			flash('Informacion de Estado Cargada Exitosamente');
+  			return response()->json($estado->id);
+      }
+  		else{
+  			flash('Fallo en la actualización de información');
+  			return response()->json($estado->id);
+  		}
+
+    }
+	}
+
   public function destroy($id){
 
     $estados=Status::findOrFail($id);

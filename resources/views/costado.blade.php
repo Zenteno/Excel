@@ -4,10 +4,10 @@
 		<!-- Sidebar user panel (optional) -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+				<img src="/bower_components/AdminLTE/dist/img/avatar.png" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>Alexander Pierce</p>
+				<p>{{Auth::user()->name}}</p>
 				<!-- Status -->
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
@@ -27,8 +27,8 @@
 		<ul class="sidebar-menu">
 			<li class="header">HEADER</li>
 			<!-- Optionally, you can add icons to the links -->
-			<li class="active"><a href="/"><i class="fa fa-link"></i> <span>Link</span></a></li>
-			<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+			<li class="active"><a href="/"><i class="fa fa-link"></i> <span>Fichas Confirmación</span></a></li>
+			<!--  <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>  -->
 			<li class="treeview">
 				<a href="#"><i class="fa fa-link"></i> <span>Administración</span>
 				<span class="pull-right-container">

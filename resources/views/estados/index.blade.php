@@ -7,6 +7,9 @@
 	table{
 		width: 100% !important;
 	}
+	textarea {
+	resize: vertical;
+}
 </style>
 
 
@@ -25,46 +28,46 @@
         <table id="example1" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th WIDTH="55">ID</th>
-              <th class="text-center" width="70">Estado</th>
+							<th class="text-center">#</th>
+              <th class="text-center">Estado</th>
 							<th class="text-center">Descripción</th>
-              <th width="50" class="text-center">Acción</th>
+              <th class="text-center">Acción</th>
             </tr>
           </thead>
 					<tbody>
-    @foreach($estados as $estado)
+    		@foreach($estados as $estado)
         <tr>
-            <td class="">{{ $estado->id}}</td>
-						<td class="text-center">{{ $estado->estado }}</td>
-						<td class="text-center">{{$estado->descripcion}}</td>
- 					{!! Form::open(['route' => ['estados.destroy', $estado->id], 'method' => 'DELETE']) !!}
-							<td class="text-center">
+            <td width="55"> {{ $estado -> id }} </td>
+						<td width="25%" class="text-center"> {{ $estado -> estado }} </td>
+						<td class="text-center">{{$estado -> descripcion}}</td>
+						<td width="15%"class="text-right">
+ 						{!! Form::open(['route' => ['estados.destroy', $estado->id], 'method' => 'DELETE']) !!}
 								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar estado: {{$estado->estado}}?'>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
 								</button>
-            	</td>
-							{{Form::close()}}
+								<a id="edit" class="btn btn-info btn-xs">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Editar
+								</a>
+				    {{Form::close()}}
+						</td>
       </tr>
-    				@endforeach
-
+	 			@endforeach
   				</tbody>
           <tfoot>
             <tr>
-							<th WIDTH="55">ID</th>
-              <th class="text-center" width="70">Estado</th>
+							<th class="text-center">ID</th>
+              <th class="text-center">Estado</th>
 							<th class="text-center">Descripción</th>
-              <th width="50" class="text-center">Acción</th>
+              <th class="text-center">Acción</th>
             </tr>
           </tfoot>
         </table>
-
-				</div>
-      </div>
+			</div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal crear estado -->
 <div id="createmodal" class="modal fade" role="dialog">
 	{!! Form::model($estados, ['method' => 'POST','route' => 'estados.store', 'class'=>'bootstrap-modal-form']) !!}
   <div class="modal-dialog" role="document">
@@ -99,6 +102,34 @@
   {{Form::close()}}
 </div>
 <!-- End Modal -->
+
+<!-- Modal editar descripcion de estado -->
+<div id="editmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog" role="document">
+    	<!-- Modal content-->
+    	<div class="modal-content">
+      	<div class="modal-header">
+        <!--	<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        	<h4 class="modal-title"> Editar descripción de estado: {{$estado->estado}} </h4>
+    		</div>
+      	<div class="modal-body">
+					<div class="form-group row">
+            {{Form::label('Descripcion','Descripción:',['class'=>'col-sm-3 col-form-label'])}}
+            <div class="col-sm-12">
+               <textarea class="form-control" id="descripcion" rows="2" name="descripcion" required placeholder="Este estado corresponde a los que han sido agendados y confirmados"></textarea>
+            </div>
+        	</div>
+        </div>
+      	<div class="modal-footer">
+					<button type="button" id="mlsuccess" class= "btn btn-primary pull-right">Guardar cambios</button>
+        	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+      	</div>
+    	</div>
+	</div>
+</div>
+<!-- End Modal -->
+
+
 
 <script>
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
@@ -135,6 +166,36 @@ $('#example1').dataTable({
 });
 $('.confirm').on('click', function (e) {
 	return !!confirm($(this).data('confirm'));
+});
+
+$(document).ready(function(){
+	$(document).on('click','#edit',function(e){
+		e.preventDefault();
+		$("#editmodal").modal()
+	});
+});
+$(document).ready(function(){
+	$(document).on('click','#mlsuccess',function(e){
+		e.preventDefault();
+		var status_id = {{$estado->id}};
+		var descp = $('#descripcion').val();
+		$.ajax({
+			type:'post',
+			url: '{!!URL::to('estados/update')!!}',
+			data:{'status_id':status_id,
+						'descripcion':descp,
+						"_token": "{{csrf_token()}}"
+						},
+			dataType: 'json',
+			success:function(data){
+				$("#editmodal").modal('hide');
+			location.reload();
+			},
+			error:function(){
+			}
+
+		});
+	});
 });
 </script>
 @endsection

@@ -36,7 +36,7 @@ class CreateStatusRequest extends FormRequest
       return [
         'estado.required' => 'Debe Añadir Nombre del nuevo estado',
         'estado.max:20' =>'No puede sobrepasar los 20 caracteres',
-        'estado.unique'=>'Ya existe este estado',
+        'estado.unique:states'=>'Ya existe este estado',
         'descripcion.required' => 'Debe ingresar una descripción para el estado',
         'descripcion.string' => 'Método de entrada invalido',
         'descripcion.max:200' =>'La descripción debe ser de un máximo de 200 caracteres'

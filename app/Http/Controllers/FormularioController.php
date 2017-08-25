@@ -88,7 +88,7 @@ class FormularioController extends Controller
 				"observacion"=> $dato["K"],
 				"intento1"=> $dato["L"],
 				"intento2"=> $dato["M"],
-          		"intento3"=> $dato["N"]
+        "intento3"=> $dato["N"]
 				];
         	$medico=explode(" ",$dato["B"]);
         	for($c=1;$c<count($medico);$c++)

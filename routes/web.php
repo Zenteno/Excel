@@ -24,6 +24,7 @@ Route::get('ficha/listar','FormularioController@listar');
 Route::get('ficha/getMedicos','FormularioController@getMedicos');
 Route::post('ficha/mensajeria','FormularioController@mensajeria');
 Route::post('ficha/changestatus','FormularioController@changestatus');
+Route::post('estados/update','EstadosController@update');
 
 Route::resource('ficha','FormularioController');
 Auth::routes();

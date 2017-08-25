@@ -35,7 +35,7 @@ class CreateEspecialidadesRequest extends FormRequest
       return [
         'especialidad.required' => 'Debe Añadir el Nombre de la Especialidad',
         'especialidad.max:40' =>'No puede sobrepasar los 60 caracteres',
-        'especialidad.unique'=>'Ya existe esta especialidad'
+        'especialidad.unique:specialties'=>'Ya existe esta especialidad'
 
       ];
     }

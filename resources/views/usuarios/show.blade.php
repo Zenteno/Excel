@@ -17,7 +17,7 @@ resize: vertical;
   <div class="col-md-12">
     @include('flash::message')
       <div class="x_title">
-        <h2>Médico: {{ $medicos->paterno }} {{ $medicos->materno }}, {{ $medicos->nombres }}</h2>
+        <h2>Usuario: {{ $usuarios->name }} {{ $usuarios->apellido }}</h2>
         <div class="clearfix"></div>
       </div>
 
@@ -27,11 +27,13 @@ resize: vertical;
             <div class="box-body">
               <dl class="dl-horizontal">
                 <dt>RUN</dt>
-                <dd>{{ $medicos->run }}</dd>
-                <dt>Especialidad</dt>
-                <dd>{{ $medicos->specialty->especialidad }}</dd>
-                <dt>Observaciones</dt>
-                <dd>{{ $medicos->comentarios }} </dd>
+                <dd>{{ $usuarios->rut }}</dd>
+                <dt>Fecha de Nacimiento</dt>
+                <dd>{{ $usuarios->fecha_nacimiento }}</dd>
+                <dt>Correo</dt>
+                <dd>{{ $usuarios->email}}</dd>
+                <dt>Telefono</dt>
+                <dd>{{ $usuarios->telefono }} </dd>
               </dl>
             </div>
           </div>

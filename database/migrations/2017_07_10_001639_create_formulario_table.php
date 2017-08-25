@@ -15,20 +15,20 @@ class CreateFormularioTable extends Migration
     {
         Schema::create('formularios', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime("fecha");
+            $table->DateTime("fecha");
             $table->string("paciente",100);
             $table->string("rut",40);
             $table->string("sexo",10);
             $table->string("edad",3);
             $table->string("prestacion",100);
-            $table->string("fono1",40)->nullable();
-            $table->string("fono2",40)->nullable();
-            $table->string("fono3",40)->nullable();
+            $table->string("fono1",20)->nullable();
+            $table->string("fono2",20)->nullable();
+            $table->string("fono3",20)->nullable();
             $table->string("observacion",255)->nullable();
+            $table->string("ejecutiva",100)->nullable();
             $table->string("intento1",40)->nullable();
             $table->string("intento2",40)->nullable();
             $table->string("intento3",40)->nullable();
-            $table->string("ejecutiva",100)->nullable();
             $table->timestamps();
 
         });
