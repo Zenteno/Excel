@@ -45,7 +45,7 @@
 								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar estado: {{$estado->estado}}?'>
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Eliminar
 								</button>
-								<a id="edit" class="btn btn-info btn-xs">
+								<a class="edit btn btn-info btn-xs" id="{{$estado->id}}">
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Editar
 								</a>
 				    {{Form::close()}}
@@ -110,7 +110,7 @@
     	<div class="modal-content">
       	<div class="modal-header">
         <!--	<button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        	<h4 class="modal-title"> Editar descripción de estado: {{$estado->estado}} </h4>
+        	<h4 class="modal-title" id="titulo"> Editar descripción de estado  </h4>
     		</div>
       	<div class="modal-body">
 					<div class="form-group row">
@@ -118,6 +118,7 @@
             <div class="col-sm-12">
                <textarea class="form-control" id="descripcion" rows="2" name="descripcion" required placeholder="Este estado corresponde a los que han sido agendados y confirmados"></textarea>
             </div>
+            <input type="hidden" name="id" value="" id="id">
         	</div>
         </div>
       	<div class="modal-footer">
@@ -134,50 +135,44 @@
 <script>
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 $(document).ready(function(){
-$('#example1').dataTable({
+	$('#example1').dataTable({
 
-	language:{
-    "sProcessing":     "Procesando...",
-    "sLengthMenu":     "Mostrar  _MENU_  registros",
-    "sZeroRecords":    "No se encontraron resultados",
-    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty":      "Mostrando registros del 0 al 0. De un total de 0 registros",
-    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix":    "",
-    "sSearch":         "Buscar:	 ",
-    "sUrl":            "",
-    "sInfoThousands":  ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-    },
-    "oAria": {
-        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
-	}
-
-});
-
-});
-$('.confirm').on('click', function (e) {
-	return !!confirm($(this).data('confirm'));
-});
-
-$(document).ready(function(){
-	$(document).on('click','#edit',function(e){
+		language:{
+		    "sProcessing":     "Procesando...",
+		    "sLengthMenu":     "Mostrar  _MENU_  registros",
+		    "sZeroRecords":    "No se encontraron resultados",
+		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		    "sInfoEmpty":      "Mostrando registros del 0 al 0. De un total de 0 registros",
+		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		    "sInfoPostFix":    "",
+		    "sSearch":         "Buscar:	 ",
+		    "sUrl":            "",
+		    "sInfoThousands":  ",",
+		    "sLoadingRecords": "Cargando...",
+		    "oPaginate": {
+		        "sFirst":    "Primero",
+		        "sLast":     "Último",
+		        "sNext":     "Siguiente",
+		        "sPrevious": "Anterior"
+		    },
+		    "oAria": {
+		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		    }
+		}
+	});
+	$('.confirm').on('click', function (e) {
+		return !!confirm($(this).data('confirm'));
+	});
+	$(document).on('click','.edit',function(e){
 		e.preventDefault();
+		$("#id").val(e.target.id);
 		$("#editmodal").modal()
 	});
-});
-$(document).ready(function(){
 	$(document).on('click','#mlsuccess',function(e){
 		e.preventDefault();
-		var status_id = {{$estado->id}};
+		var status_id = $("#id").val();
 		var descp = $('#descripcion').val();
 		$.ajax({
 			type:'post',
@@ -197,5 +192,6 @@ $(document).ready(function(){
 		});
 	});
 });
+
 </script>
 @endsection

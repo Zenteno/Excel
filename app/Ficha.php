@@ -16,12 +16,12 @@ class Ficha extends Model
         return $this->hasOne('App\Specialty','id','specialty');
     }
 
-		public function festado(){
-				return $this->hasOne('App\Status','id','estado');
-		}
+	public function festado(){
+		return $this->hasOne('App\Status','id','estado');
+	}
 
-		public static function fichasPorEspecialiad($id){
-			return Ficha::where('specialty',$id)->get();
-	 }
+	public static function fichasPorEspecialiad($id){
+		return Ficha::where('specialty',$id)->get();
+	}
 
 }

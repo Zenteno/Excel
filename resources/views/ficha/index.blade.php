@@ -94,7 +94,7 @@
 					{ data: "fecha", name: "fecha"},
 					{ data: "paciente", name: "paciente"},
 					{ data: "rut", name: "rut"},
-					{ data: "festado.estado", name: "festado.estado"},
+					{ data: "festado.estado", name: "estado"},
 					{ data: 'action', name: 'action', orderable: false, searchable: false}
 				],
 				language: {

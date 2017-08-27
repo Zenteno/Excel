@@ -37,9 +37,7 @@
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 		<script src="{{ asset('/bower_components/AdminLTE/plugins/select2/select2.min.js')}}"></script>
-		<!--Modal Form Bower Component -->
-		<script src="{{ asset('/bower_components/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js')}}"></script>
-
+		
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
