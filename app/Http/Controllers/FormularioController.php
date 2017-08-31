@@ -15,7 +15,7 @@ use App\Specialty;
 use App\Status;
 use App\User;
 use App\Spe_user;
-
+use App\Index_file;
 
 class FormularioController extends Controller
 {
@@ -34,8 +34,10 @@ class FormularioController extends Controller
   {
 	$especialidades = Specialty::All();
   $estados = Status::All();
+  $indice=Index_file::All();
 	return view('ficha.create')->with('especialidades',$especialidades)
-                             ->with('estados',$estados);
+                             ->with('estados',$estados)
+                             ->with('indice',$indice);
   }
   public function store(Request $request){
 
@@ -71,6 +73,11 @@ class FormularioController extends Controller
       	$file = $request->file('file');
 		$nombre = $file->getClientOriginalName();
 		$file->storeAs('public/',$nombre);
+    /*if(){
+      Index_file::create([
+        'file_name'=>$nombre
+      ]);
+    } */
 		$objPHPExcel = PHPExcel_IOFactory::load("storage/".$nombre);
 		$objWorksheet = $objPHPExcel->getActiveSheet();
 		$datos = $objWorksheet->toArray(null, true, true, true);
@@ -100,9 +107,11 @@ class FormularioController extends Controller
 		        $arreglo["edad"]=explode(" ",$dato["G"])[0];
 		        $telefonos = explode("/", $dato["I"]);
         		for($i=1;$i<=count($telefonos) && $i<=3;$i++)
-					$arreglo["fono".$i] = trim($telefonos[$i-1]);
+					  $arreglo["fono".$i] = trim($telefonos[$i-1]);
         		$estadoPorDefecto=Status::where('estado','Por Asignar')->first();
         		$arreglo["estado"]=$estadoPorDefecto->id;
+          //  $lugarPorDefecto=Location::where('location_name','Por asignar')->first();
+          //  $arreglo["location_id"]=$lugarPorDefecto->id;
 				Ficha::create($arreglo);
 			}
 			flash('Datos Cargados Exitosamente');
@@ -130,20 +139,11 @@ class FormularioController extends Controller
           "destination" => "569$fono",
           "field" => "mensaje"
           ];
-      if ($ficha->sexo == "Masculino") {
-        $post = [
-            'bulkName' => 'REST',
-            'message' => 'Estimado '.$ficha->paciente.' recuede que tiene su Hora Agendada para: '.$ficha->fecha.'hrs. con Profesional: '.$ficha->doctor->nombres.'.',
-            'message_details'   => $datos,
+      $post = [
+        'bulkName' => 'REST',
+        'message' => $ficha->paciente.'. Hora para: '.$ficha->fecha.'hrs. Con Profesional: '.$ficha->doctor->nombres.'. Lugar: .',
+        'message_details'   => $datos,
         ];
-      }
-      else{
-        $post = [
-            'bulkName' => 'REST',
-            'message' => 'Estimada '.$ficha->paciente.' recuede que tiene su Hora Agendada para: '.$ficha->fecha.'hrs. con Profesional: '.$ficha->doctor->nombres.'.',
-            'message_details'   => $datos,
-        ];
-      }
 
       try {
       	$ch = curl_init();
@@ -172,4 +172,15 @@ class FormularioController extends Controller
         return response()->json('<a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>');
     }
   }
+
+  public function changelugar(Request $request){
+    if($request->ajax()){
+      $ficha=Ficha::find($request->ficha);
+        $ficha->lugar = $request->lugar_id;
+        $ficha->save();
+        flash('Ficha Actualizada Exitosamente');
+        return response()->json('<a class="pull-right" id="lugares">{{ $ficha->flocation->location_name }}</a>');
+    }
+  }
+
 }

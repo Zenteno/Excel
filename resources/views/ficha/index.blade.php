@@ -62,6 +62,7 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
+
 			$('#fileupload').fileupload({
 				url: '/ficha/archivo',
 				dataType: 'json',
@@ -121,7 +122,10 @@
 				        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 				    }
 				}
-			} );
-		} );
+			});
+			setInterval( function () {
+    		tabla.ajax.reload( null, false ); // paginacion del usuario no cambia
+			}, 120000 );
+		});
 	</script>
 @endsection

@@ -32,23 +32,17 @@ class UsuarioController extends Controller
          return view('usuarios.create');
      }
 
-
-
-     protected function validator(array $data)
-     {
-         return Validator::make($data, [
-             'name'      =>  'required|string|max:255',
-             'apellidos' =>  'required|string|max:30',
-             'rut'       =>  'required|string|max:12',
-             'telefono'  =>  'required|string|min:8|max:10',
-             'email'     =>  'required|string|email|max:255|unique:users',
-             'password'  =>  'required|string|min:6|confirmed',
-         ]);
-     }
-
-
     public function store(Request $request)
     {
+
+      $this->validate($request, [
+        'name'      =>  'required|string|max:255',
+        'apellidos' =>  'required|string|max:30',
+        'rut'       =>  'required|string|max:12',
+        'telefono'  =>  'required|string|min:8|max:10',
+        'email'     =>  'required|string|email|max:255|unique:users',
+        'password'  =>  'required|string|min:6|confirmed',
+  		]);
       $usuario =User::create([
           'name' => $request['name'],
           'email' => $request['email'],
@@ -57,7 +51,7 @@ class UsuarioController extends Controller
           'telefono'=> $request['telefono'],
           'apellidos' => $request['apellidos'],
       ]);
-
+      $usuario->roles()->attach(Role::where('nombre_rol', 'Ejecutivo')->first());
       if($usuario->save()){
             flash('Usuario Creado Exitosamente');
             return redirect('usuarios');

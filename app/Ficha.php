@@ -24,4 +24,19 @@ class Ficha extends Model
 		return Ficha::where('specialty',$id)->get();
 	}
 
+	public function findex_file() {
+    return $this->hasOne('App\Index_file');
+	}
+
+	public function flocation() {
+    return $this->hasOne('App\Location');
+	}
+
+
+	public function fcallstates()
+  {
+    return $this
+      ->belongsToMany('App\callstates')
+      ->withTimestamps();
+    }
 }
