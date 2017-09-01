@@ -51,7 +51,7 @@
 
  					{!! Form::open(['route' => ['medicos.destroy', $medico->id], 'method' => 'DELETE']) !!}
             	<td class="text-center">
-								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Médico de {{$medico->specialty->especialidad}}: {{$medico->paterno}} {{$medico->materno}}, {{$medico->nombres}}?'>
+								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Médico de {{$medico->specialty->especialidad}}: {{$medico->nombres}}?'>
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
                 <a href="{{ route('medicos.edit', $medico->id) }}" class="btn btn-info btn-xs">

@@ -120,13 +120,14 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
       $usuario=User::findOrFail($id);
-      if($usuario->delete())
-      {
-          flash('Usuario Eliminado Exitosamente');
-          return redirect('usuarios');
+
+      try{
+        $usuario->delete();
+        flash('Usuario Eliminado Exitosamente');
+        return redirect('usuarios');
       }
-      else{
-          flash('Este usuario no ha podido ser eliminado');
+      catch(\Exception $e){
+          flash('Este usuario no ha podido ser eliminado, esta siendo utilizado');
           return redirect('usuarios');
       }
     }

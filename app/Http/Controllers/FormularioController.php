@@ -16,6 +16,7 @@ use App\Status;
 use App\User;
 use App\Spe_user;
 use App\Index_file;
+use App\Location;
 
 class FormularioController extends Controller
 {
@@ -40,7 +41,6 @@ class FormularioController extends Controller
                              ->with('indice',$indice);
   }
   public function store(Request $request){
-
 	$ficha = Ficha::create($request->all());
 	flash('Ficha creada Exitosamente');
 	return redirect()->route('ficha.index');
@@ -54,10 +54,7 @@ class FormularioController extends Controller
   	}
 
 	public function listar(Request $request){
-	    //$user_id = Auth::id();
-		//$especialidades=Spe_user::especialidadesPorUser($user_id);
 		$especialidades = Auth::user();
-		//return $especialidades;
 		$especialidades = $especialidades->specialty()->get();
 		$aux = [];
 		foreach ($especialidades as $especialidad)
@@ -83,41 +80,47 @@ class FormularioController extends Controller
 		$datos = $objWorksheet->toArray(null, true, true, true);
 		unset($datos[1]);
      	foreach ($datos as $dato ) {
-			if($dato["E"]==null)
-				continue;
-			$fecha  = date_create_from_format('d-m-y H:i',trim($dato["C"])." ".trim($dato["D"]));
-			$arreglo = [
-				"fecha"=> $fecha,
-				"paciente"=> $dato["E"],
-				"rut"=> $dato["F"],
-				"sexo"=> $dato["H"],
-				"prestacion"=> $dato["J"],
-				"observacion"=> $dato["K"],
-				"intento1"=> $dato["L"],
-				"intento2"=> $dato["M"],
-        "intento3"=> $dato["N"]
+        if($dato["E"]==null)
+        continue;
+        $fecha  = date_create_from_format('d-m-y H:i',trim($dato["C"])." ".trim($dato["D"]));
+        $arreglo = [
+          "fecha"=> $fecha,
+          "paciente"=> $dato["E"],
+          "medico_nombre" =>$dato["B"],
+          "rut"=> $dato["F"],
+          "sexo"=> $dato["H"],
+          "prestacion"=> $dato["J"],
+          "observacion"=> $dato["K"],
+          "intento1"=> $dato["L"],
+          "intento2"=> $dato["M"],
+          "intento3"=> $dato["N"]
 				];
-        	$medico=explode(" ",$dato["B"]);
-        	for($c=1;$c<count($medico);$c++)
-          		$aux = Doctor::where('nombres','like',$medico[$c-1].'%')
-                		->where('nombres','like','%'.$medico[$c].'%')
+
+        $medico=explode(" ",$dato["B"]);
+        for($c=1;$c<count($medico);$c++)
+          $aux = Doctor::where('nombres','like',$medico[$c-1].'%')
+                      ->where('nombres','like','%'.$medico[$c].'%')
                     	->first();
-		        $arreglo["medico"]=$aux->id;
-		        $arreglo["specialty"]=$aux->especialidad_id;
-		        $arreglo["edad"]=explode(" ",$dato["G"])[0];
-		        $telefonos = explode("/", $dato["I"]);
-        		for($i=1;$i<=count($telefonos) && $i<=3;$i++)
-					  $arreglo["fono".$i] = trim($telefonos[$i-1]);
-        		$estadoPorDefecto=Status::where('estado','Por Asignar')->first();
-        		$arreglo["estado"]=$estadoPorDefecto->id;
-          //  $lugarPorDefecto=Location::where('location_name','Por asignar')->first();
-          //  $arreglo["location_id"]=$lugarPorDefecto->id;
+        $especialidad=Specialty::where('especialidad', 'like', '%'.$dato['A'].'%')->first();
+        dd($especialidad);
+		    $arreglo["medico"]=$aux->id;
+        $arreglo["specialty"]=$aux->especialidad_id;
+		    $arreglo["edad"]=explode(" ",$dato["G"])[0];
+        $telefonos = explode("/", $dato["I"]);
+        for($i=1;$i<=count($telefonos) && $i<=3;$i++)
+        $arreglo["fono".$i] = trim($telefonos[$i-1]);
+        $estadoPorDefecto=Status::where('estado','Por Asignar')->first();
+        $arreglo["estado"]=$estadoPorDefecto->id;
+        $lugarPorDefecto=Location::where('location_name','Por asignar')->first();
+        $arreglo["location_id"]=$lugarPorDefecto->id;
 				Ficha::create($arreglo);
 			}
-			flash('Datos Cargados Exitosamente');
+      flash('Datos Cargados Exitosamente');
 			return $arreglo;
 		}
 		return;
+    flash('Los datos no han podido ser cargados');
+
 	}
 
 // Funcion para enviar datos de medicos pertenecientes a una especialidad.

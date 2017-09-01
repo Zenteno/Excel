@@ -56,12 +56,13 @@ class EstadosController extends Controller
   public function destroy($id){
 
     $estados=Status::findOrFail($id);
-    if($estados->delete())
-    {
+
+    try{
+        $estados->delete();
         flash('Estado Eliminado Exitosamente');
         return redirect('estados');
     }
-    else{
+    catch(\Exception $e){
         flash('Estado no ha podido ser eliminado');
         return redirect('estados');
     }

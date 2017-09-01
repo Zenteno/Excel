@@ -103,15 +103,14 @@ class MedicosController extends Controller
   	public function destroy($id)
   	{
 		$medicos = Doctor::find($id);
-	  	if($medicos->delete())
-	  	{
-			flash('Médico Eliminado del Sistema');
-			return redirect('medicos');
-		}
-		else{
+	  	try{
+        $medicos->delete();
+		}catch(\Exception $e){
 			flash('Médico no ha podido ser eliminado del Sistema');
 			return redirect('medicos');
 		}
+    flash('Médico Eliminado del Sistema');
+    return redirect('medicos');
 	}
 
 }

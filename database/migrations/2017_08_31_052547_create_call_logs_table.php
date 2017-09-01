@@ -18,7 +18,7 @@ class CreateCallLogsTable extends Migration
             $table->integer('ficha_id')->unsigned();
             $table->integer('callstate_id')->unsigned();
             $table->string('telefono');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->foreign('ficha_id')->references('id')->on('formularios')->onDelete('cascade');

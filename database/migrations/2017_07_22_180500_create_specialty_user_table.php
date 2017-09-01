@@ -17,9 +17,9 @@ class CreateSpecialtyUserTable extends Migration
             $table->increments('id');
             $table->boolean('status');
             $table->integer('usuario')->unsigned();
-            $table->foreign('usuario')->references('id')->on('users');
+            $table->foreign('usuario')->references('id')->on('users')->onDelete('cascade');
             $table->integer('especialidad')->unsigned();
-            $table->foreign('especialidad')->references('id')->on('specialties');
+            $table->foreign('especialidad')->references('id')->on('specialties')->onDelete('cascade');
             $table->timestamps();
         });
     }

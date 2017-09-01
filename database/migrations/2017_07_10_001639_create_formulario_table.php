@@ -17,9 +17,10 @@ class CreateFormularioTable extends Migration
             $table->increments('id');
             $table->DateTime("fecha");
             $table->string("paciente",100);
+            $table->string("medico_nombre")->nullable();
             $table->string("rut",40);
             $table->string("sexo",10);
-            $table->string("edad",3);
+            $table->string("edad",2);
             $table->string("prestacion",100);
             $table->string("fono1",20)->nullable();
             $table->string("fono2",20)->nullable();

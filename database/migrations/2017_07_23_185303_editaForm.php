@@ -15,17 +15,17 @@ class EditaForm extends Migration
     {
         Schema::table('formularios', function (Blueprint $table) {
 
-            $table->integer('medico')->unsigned();
+            $table->integer('medico')->unsigned()->nullable();
             $table->integer('specialty')->unsigned();
             $table->integer('estado')->unsigned();
-            $table->integer('location_id')->unsigned();
-            $table->integer('index_id')->unsigned();
+            $table->integer('location_id')->unsigned()->nullable();;
+            $table->integer('index_id')->unsigned()->nullable();;
 
-            $table->foreign('medico')->references('id')->on('doctors');
-            $table->foreign('specialty')->references('id')->on('specialties');
-            $table->foreign('estado')->references('id')->on('states');
-          //  $table->foreign('location_id')->references('id')->on('locations');
-          //  $table->foreign('index_id')->references('id')->on('index_files');
+            $table->foreign('medico')->references('id')->on('doctors')->onDelete('cascade');
+            $table->foreign('specialty')->references('id')->on('specialties')->onDelete('cascade');
+            $table->foreign('estado')->references('id')->on('states')->onDelete('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
+            $table->foreign('index_id')->references('id')->on('index_files')->onDelete('cascade');
         });
     }
 

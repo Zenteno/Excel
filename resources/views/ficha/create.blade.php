@@ -52,18 +52,18 @@
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</div>
-							<input type="text" class="form-control pull-right datepicker" id="datepicker" name="fecha">
+							<input type="text" class="form-control pull-right datepicker" id="datepicker" required name="fecha">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">Paciente</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="paciente" placeholder="Humberto Santana">
+							<input type="text" class="form-control" name="paciente"  required placeholder="Humberto Santana">
 						</div>
 						<label for="inputEmail3" class="col-sm-1 control-label">Edad</label>
 						<div class="col-sm-1">
-							<input type="text" class="form-control" name="edad" placeholder="18">
+							<input type="text" class="form-control" name="edad" required placeholder="18">
 						</div>
 						<label for="inputEmail3" class="col-sm-1 control-label">Sexo</label>
 						<div class="col-sm-2">
@@ -76,7 +76,7 @@
 					<div class="form-group row">
 						<label for="inputEmail3" class="col-sm-2 control-label">RUN</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="rut" placeholder="11111111-1">
+							<input type="text" class="form-control" required name="rut" placeholder="11111111-1">
 						</div>
 					</div>
 					<div class="form-group row">

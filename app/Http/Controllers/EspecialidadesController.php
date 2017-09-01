@@ -40,12 +40,12 @@ class EspecialidadesController extends Controller
   public function destroy($id){
 
     $especialidades=Specialty::findOrFail($id);
-    if($especialidades->delete())
-    {
-        flash('Especialidad Eliminada Exitosamente');
-        return redirect('especialidades');
+    try{
+      $especialidades->delete();
+      flash('Especialidad Eliminada Exitosamente');
+      return redirect('especialidades');
     }
-    else{
+    catch(\Exception $e){
         flash('Especialidad  no ha podido ser eliminada');
         return redirect('especialidades');
     }
