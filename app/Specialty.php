@@ -20,15 +20,4 @@ class Specialty extends Model
         );
     }
 
-
-    public function buildConsulta($query, $q)
-    {
-
-      $sql = $q[0].".'%')";
-      for ($i=1; $i <count($q) ; $i++) {
-          $sql = $sql."->where('especialidad','like', '%'.".$q[$i].".'%')" ;
-      }
-      $sql=$sql.";";
-      return $sql;
-    }
 }

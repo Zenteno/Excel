@@ -91,11 +91,11 @@
 						<div class="panel-heading">Intentos de contacto</div>
 						<div class="box-body">
 							<dl class="dl-horizontal">
-								<dt>Intento 1:</dt>
+								<dt>Registro en ficha 1:</dt>
 								<dd>{{ $ficha->intento1 }}</dd>
-								<dt>Intento 2:</dt>
-								<dd>{{ $ficha->intento2 }}
-								</dd><dt>Intento 3:</dt>
+								<dt>Registro en ficha 2:</dt>
+								<dd>{{ $ficha->intento2 }}</dd>
+								<dt>Registro en ficha 3:</dt>
 								<dd>{{ $ficha->intento3 }}</dd>
 							</dl>
 						</div>
@@ -103,11 +103,19 @@
 					</div>
 					<!-- /.box -->
 					<div class="box box-solid">
+
 						<div class="box-body">
 							<ul class="list-group list-group-unbordered">
 								<li class="list-group-item">
 									<b>Estado de Ficha</b>
 									<div class="box-body"><a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>
+								</li>
+								<li class="list-group-item form-group">
+
+							          <b>Lugar de Atención</b>
+							          <div class="box-body">
+													{!!Form::select('lugar', $lugares->pluck('location_name','id'), null,['placeholder'=>'Selecciona un Lugar de Atención', 'class' => 'form-control pull-right', 'id'=>'lugarAtencion'])!!}
+							          </div>
 								</li>
 							</ul>
 						</div>
@@ -142,7 +150,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 									<button type="button" class="btn btn-sms btn-primary" id="1">¡Enviar sms!</button>
-									<button type="button" class="btn btn-success">¡Llamar!</button>
+									<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -156,7 +164,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 								<button type="button" class="btn btn-sms btn-primary" id='2' >¡Enviar sms!</button>
-								<button type="button" class="btn btn-success">¡Llamar!</button>
+								<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -170,7 +178,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 								<button type="button" class="btn btn-sms btn-primary" id='3'>¡Enviar sms!</button>
-								<button type="button" class="btn btn-success">¡Llamar!</button>
+								<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -285,6 +293,28 @@ $(document).ready(function(){
 				error:function(){
 				}
 
+			});
+		});
+
+		$(document).on('change','#lugarAtencion', function(){
+			var lugaten_id=$(this).val();
+			var ficha_id ={{ $ficha->id }};
+			console.log(lugaten_id);
+			$.ajax({
+				type:'post',
+				url: '{!!URL::to('ficha/changelugar')!!}',
+				data:{'lug_id':lugaten_id,
+							'fichaid': ficha_id,
+							"_token": "{{csrf_token()}}"
+						},
+				dataType: 'json',
+				success:function(data){
+							console.log('success');
+							console.log(data);
+							location.reload();
+				},
+				error:function(){
+				}
 			});
 		});
 	});

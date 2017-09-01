@@ -21,8 +21,8 @@ class CreateCallLogsTable extends Migration
             $table->string('comment')->nullable();
             $table->timestamps();
 
-            $table->foreign('ficha_id')->references('id')->on('formularios')->onDelete('cascade');
-            $table->foreign('callstate_id')->references('id')->on('callstates')->onDelete('cascade');
+            $table->foreign('ficha_id')->references('id')->on('formularios')->onDelete('set null');
+            $table->foreign('callstate_id')->references('id')->on('callstates')->onDelete('set null');
         });
     }
 

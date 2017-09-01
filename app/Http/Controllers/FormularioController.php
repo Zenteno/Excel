@@ -17,6 +17,7 @@ use App\User;
 use App\Spe_user;
 use App\Index_file;
 use App\Location;
+use App\Call_log;
 
 class FormularioController extends Controller
 {
@@ -50,7 +51,10 @@ class FormularioController extends Controller
  	{
 		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado')->first();
     $estados= Status::All();
-		return view('ficha.show')->with('ficha',$ficha)->with('estados', $estados);
+    $lugares = Location::All();
+		return view('ficha.show')->with('ficha',$ficha)
+                            ->with('estados', $estados)
+                            ->with('lugares', $lugares);
   	}
 
 	public function listar(Request $request){
@@ -176,7 +180,7 @@ class FormularioController extends Controller
           ];
       $post = [
         'bulkName' => 'REST',
-        'message' => $ficha->paciente.'. Hora para: '.$ficha->fecha.'hrs. Con Profesional: '.$ficha->doctor->nombres.'. Lugar: .',
+        'message' => $ficha->paciente.'. Hora para: '.$ficha->fecha.'hrs. Con Profesional: '.$ficha->doctor->nombres.'. Lugar: '.$ficha->flocation->location_name.'.',
         'message_details'   => $datos,
         ];
 
@@ -210,8 +214,8 @@ class FormularioController extends Controller
 
   public function changelugar(Request $request){
     if($request->ajax()){
-      $ficha=Ficha::find($request->ficha);
-        $ficha->lugar = $request->lugar_id;
+        $ficha=Ficha::find($request->fichaid);
+        $ficha->location_id = $request->lug_id;
         $ficha->save();
         flash('Ficha Actualizada Exitosamente');
         return response()->json('<a class="pull-right" id="lugares">{{ $ficha->flocation->location_name }}</a>');
