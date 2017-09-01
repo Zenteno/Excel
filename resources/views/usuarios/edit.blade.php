@@ -31,6 +31,10 @@
               <dl class="dl-horizontal">
                 <dt>Nombre</dt>
                 <dd>{{ $usuario->name }}</dd>
+                @foreach($usuario->roles as $rol)
+                <dt>Rol/les</dt>
+                <dd>{{ $rol->nombre_rol }}</dd>
+                @endforeach
                 </dl>
             </div>
           </div>

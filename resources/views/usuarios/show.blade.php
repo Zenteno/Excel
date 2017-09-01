@@ -34,6 +34,10 @@ resize: vertical;
                 <dd>{{ $usuarios->email}}</dd>
                 <dt>Telefono</dt>
                 <dd>{{ $usuarios->telefono }} </dd>
+                @foreach($usuarios->roles as $rol)
+                <dt>Rol/es</dt>
+                <dd>{{ $rol->nombre_rol }} </dd>
+                @endforeach
               </dl>
             </div>
           </div>

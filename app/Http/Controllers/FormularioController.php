@@ -70,6 +70,7 @@ class FormularioController extends Controller
 	}
 
 	public function archivo(Request $request){
+    $request->user()->authorizeRoles(['Ejecutivo']);
     if ($request->hasFile('file')) {
       	$file = $request->file('file');
 		$nombre = $file->getClientOriginalName();
