@@ -20,14 +20,15 @@ class Specialty extends Model
         );
     }
 
-    public function scopeSpecialty($query, $esp_name){
-  		return $query->whereRaw("MATCH('especialidad')AGAINST('$esp_name' IN BOOLEAN MODE)");
-  	}
 
-    public function scopeSearch($query, $q)
+    public function buildConsulta($query, $q)
     {
-   $match = "MATCH('especialidad') AGAINST (?)";
-   return $query->whereRaw($match, array($q))
-                ->orderByRaw($match.' DESC', array($q));
-              }
+
+      $sql = $q[0].".'%')";
+      for ($i=1; $i <count($q) ; $i++) {
+          $sql = $sql."->where('especialidad','like', '%'.".$q[$i].".'%')" ;
+      }
+      $sql=$sql.";";
+      return $sql;
+    }
 }

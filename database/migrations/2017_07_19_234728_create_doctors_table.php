@@ -18,7 +18,7 @@ class CreateDoctorsTable extends Migration
            $table->string('run',10)->nullable();
            $table->string('nombres',50);
            $table->integer('especialidad_id')->unsigned();
-           $table->string('comentarios',500);
+           $table->string('comentarios',500)->nullable();
            $table->foreign('especialidad_id')->references('id')->on('specialties')->onDelete('cascade');
            $table->timestamps();
        });

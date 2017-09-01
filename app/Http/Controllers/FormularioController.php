@@ -95,16 +95,48 @@ class FormularioController extends Controller
           "intento2"=> $dato["M"],
           "intento3"=> $dato["N"]
 				];
-
-        $medico=explode(" ",$dato["B"]);
-        for($c=1;$c<count($medico);$c++)
-          $aux = Doctor::where('nombres','like',$medico[$c-1].'%')
+        try{
+          $espe_sin_pt=str_replace(".","",$dato["A"]);
+          $q=explode(" ", $espe_sin_pt);
+          $consulta = Specialty::where('especialidad','like',$q[0].'%');
+          for ($i=1; $i <count($q) ; $i++) {
+              $consulta = $consulta->where('especialidad','like', '%'.$q[$i].'%');
+          }
+          $consulta= $consulta->first();
+          $arreglo["specialty"]=$consulta->id;
+        }catch(\Exception $e){
+          $new_espe = new Specialty();
+          $new_espe->especialidad = $dato["A"];
+          $new_espe->save();
+          $arreglo["specialty"]=Specialty::where('id',$dato["A"])->first();
+          flash("¡Se ha agregado una Nueva Especialidad");
+        }
+        try{
+          $medico=explode(" ",$dato["B"]);
+          $aux = Doctor::where('nombres','like',$medico[0].'%');
+          for ($c=1; $c <count($medico) ; $c++) {
+            $aux = $aux->where('nombres','like', '%'.$medico[$c].'%');
+          }
+          $aux= $aux->first();
+          /*  for($c=1;$c<count($medico);$c++)
+                    $aux = Doctor::where('nombres','like',$medico[$c-1].'%')
                       ->where('nombres','like','%'.$medico[$c].'%')
                     	->first();
-        $especialidad=Specialty::where('especialidad', 'like', '%'.$dato['A'].'%')->first();
-        dd($especialidad);
-		    $arreglo["medico"]=$aux->id;
-        $arreglo["specialty"]=$aux->especialidad_id;
+          */
+          $arreglo["medico"]=$aux->id;
+        }catch(\Exception $e){
+          $new_doctor = new Doctor();
+          $new_doctor->nombres = strtoupper($dato["B"]);
+          $new_doctor->especialidad_id = $arreglo["specialty"];
+          $new_doctor->comentarios = 'Médico ingresado por ficha.';
+          $new_doctor->save();
+          $arreglo["medico_nombre"]=strtoupper( $dato["B"]);
+          flash("¡Se agregó un nuevo Médico!");
+        }
+
+
+
+      //  $arreglo["specialty"]=$aux->especialidad_id;
 		    $arreglo["edad"]=explode(" ",$dato["G"])[0];
         $telefonos = explode("/", $dato["I"]);
         for($i=1;$i<=count($telefonos) && $i<=3;$i++)
@@ -112,7 +144,7 @@ class FormularioController extends Controller
         $estadoPorDefecto=Status::where('estado','Por Asignar')->first();
         $arreglo["estado"]=$estadoPorDefecto->id;
         $lugarPorDefecto=Location::where('location_name','Por asignar')->first();
-        $arreglo["location_id"]=$lugarPorDefecto->id;
+        $arreglo["location_id"]=2;
 				Ficha::create($arreglo);
 			}
       flash('Datos Cargados Exitosamente');
