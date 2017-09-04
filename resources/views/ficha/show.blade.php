@@ -10,7 +10,9 @@
 		display: block;
 		z-index: 1;
 	}
-
+	#estados{
+	 cursor: pointer;
+	}
 	.example-modal .modal {
 		background: transparent !important;
 	}
@@ -22,7 +24,7 @@
 			<a href="/" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-menu-left"></i> volver</a>
 			@include('flash::message')
 			<div class="x_title">
-				<h2>Detalle Ficha #{{ $ficha->id }}</h2>
+				<h2>Detalle Ficha #{{$ficha->index_id}}-{{ $ficha->id }}</h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -108,13 +110,14 @@
 							<ul class="list-group list-group-unbordered">
 								<li class="list-group-item">
 									<b>Estado de Ficha</b>
-									<div class="box-body"><a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>
+									<a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>
 								</li>
 								<li class="list-group-item form-group">
 
-							          <b>Lugar de Atención</b>
+							          <b>Lugar de Atención:</b>
+												<a class="pull-right" id="loc">{{ $ficha->flocation->location_name }}</a>
 							          <div class="box-body">
-													{!!Form::select('lugar', $lugares->pluck('location_name','id'), null,['placeholder'=>'Selecciona un Lugar de Atención', 'class' => 'form-control pull-right', 'id'=>'lugarAtencion'])!!}
+													{!!Form::select('lugar', $lugares->pluck('location_name','id'), null,['placeholder'=>'Cambiar lugar de Atención', 'class' => 'form-control pull-right', 'id'=>'lugarAtencion'])!!}
 							          </div>
 								</li>
 							</ul>

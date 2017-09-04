@@ -90,7 +90,7 @@
 				serverSide: true,
 				ajax: '/ficha/listar',
 				columns: [
-					{ data: "id", name: "formularios.id" },
+					{ data: "id", name: "formularios.id"},
 					{ data: "fespecialidad.especialidad", name: "fespecialidad.especialidad" },
 					{ data: "doctor.nombres", name: "doctor.nombres"},
 					{ data: "fecha", name: "fecha"},

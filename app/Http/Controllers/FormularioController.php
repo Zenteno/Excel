@@ -44,9 +44,11 @@ class FormularioController extends Controller
   public function store(Request $request){
   	$datos = $request->all();
   	$doctor = Doctor::find($datos["medico"]);
+    $loc=Location::where('location_name','Por asignar')->first();
+    $datos['location_id']=$loc->id;
   	$datos["specialty"] = $doctor->specialty->id;
-	$datos["fecha"] = $datos["fecha"]." ".$datos["hora"];
-	//dd($datos);
+	  $datos["fecha"] = $datos["fecha"]." ".$datos["hora"];
+	  $datos["index_id"]="00";
 	$ficha = Ficha::create($datos);
 	flash('Ficha creada Exitosamente');
 	return redirect()->route('ficha.index');
@@ -54,7 +56,7 @@ class FormularioController extends Controller
 
   	public function show($id)
  	{
-		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado')->first();
+		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado','flocation')->first();
     $estados= Status::All();
     $lugares = Location::All();
 		return view('ficha.show')->with('ficha',$ficha)
@@ -68,7 +70,7 @@ class FormularioController extends Controller
 		$aux = [];
 		foreach ($especialidades as $especialidad)
 			$aux[] = $especialidad->id;
-		$fichas = Ficha::whereIn('specialty',$aux)->with('doctor','fespecialidad','festado');
+		$fichas = Ficha::whereIn('specialty',$aux)->with('doctor','fespecialidad','festado','findex_file');
 		return Datatables::of($fichas)->addColumn('action', function ($fichas) {
 				return '<a href="ficha/'.$fichas->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Detalles</a>';
 			})->make(true);
@@ -78,12 +80,12 @@ class FormularioController extends Controller
     if ($request->hasFile('file')) {
       	$file = $request->file('file');
 		$nombre = $file->getClientOriginalName();
-		$file->storeAs('public/',$nombre);
-    /*if(){
-      Index_file::create([
-        'file_name'=>$nombre
-      ]);
-    } */
+    $file->storeAs('public/',$nombre);
+
+    $new_index= new Index_file();
+    $new_index->file_name= $nombre;
+    $new_index->save();
+
 		$objPHPExcel = PHPExcel_IOFactory::load("storage/".$nombre);
 		$objWorksheet = $objPHPExcel->getActiveSheet();
 		$datos = $objWorksheet->toArray(null, true, true, true);
@@ -128,11 +130,6 @@ class FormularioController extends Controller
             $aux = $aux->where('nombres','like', '%'.$medico[$c].'%');
           }
           $aux= $aux->first();
-          /*  for($c=1;$c<count($medico);$c++)
-                    $aux = Doctor::where('nombres','like',$medico[$c-1].'%')
-                      ->where('nombres','like','%'.$medico[$c].'%')
-                    	->first();
-          */
           $arreglo["medico"]=$aux->id;
         }catch(\Exception $e){
           $new_doctor = new Doctor();
@@ -145,8 +142,6 @@ class FormularioController extends Controller
         }
 
 
-
-      //  $arreglo["specialty"]=$aux->especialidad_id;
 		    $arreglo["edad"]=explode(" ",$dato["G"])[0];
         $telefonos = explode("/", $dato["I"]);
         for($i=1;$i<=count($telefonos) && $i<=3;$i++)
@@ -154,7 +149,8 @@ class FormularioController extends Controller
         $estadoPorDefecto=Status::where('estado','Por Asignar')->first();
         $arreglo["estado"]=$estadoPorDefecto->id;
         $lugarPorDefecto=Location::where('location_name','Por asignar')->first();
-        $arreglo["location_id"]=2;
+        $arreglo["location_id"]=$lugarPorDefecto->id;
+        $arreglo["index_id"]=$new_index->id;
 				Ficha::create($arreglo);
 			}
       flash('Datos Cargados Exitosamente');

@@ -11,6 +11,6 @@ class Index_file extends Model
   protected $fillable = ['file_name'];
 
   public function fficha() {
-    return $this->belongsTo('App\Ficha');
+    return $this->hasMany('App\Ficha');
   }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ficha extends Model
 {
 	protected $table = 'formularios';
-	protected $fillable = ["specialty","medico_nombre","medico","fecha","paciente","rut","sexo","edad","prestacion","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva","estado",'location_id',];
+	protected $fillable = ["specialty","medico_nombre","medico","fecha","paciente","rut","sexo","edad","prestacion","fono1","fono2","fono3","observacion","intento1","intento2","intento3","ejecutiva","estado",'location_id', 'index_id'];
 
 	public function doctor(){
         return $this->hasOne('App\Doctor','id','medico');
@@ -25,7 +25,7 @@ class Ficha extends Model
 	}
 
 	public function findex_file() {
-    return $this->hasOne('App\Index_file');
+    return $this->belongsTo('App\Index_file');
 	}
 
 	public function flocation() {
