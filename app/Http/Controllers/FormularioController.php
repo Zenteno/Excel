@@ -34,15 +34,20 @@ class FormularioController extends Controller
 
   public function create()
   {
-	$especialidades = Specialty::All();
-  $estados = Status::All();
-  $indice=Index_file::All();
-	return view('ficha.create')->with('especialidades',$especialidades)
+	$medicos = Doctor::orderBy('nombres', 'asc')->get();
+  	$estados = Status::All();
+  	$indice=Index_file::All();
+	return view('ficha.create')->with('medicos',$medicos)
                              ->with('estados',$estados)
                              ->with('indice',$indice);
   }
   public function store(Request $request){
-	$ficha = Ficha::create($request->all());
+  	$datos = $request->all();
+  	$doctor = Doctor::find($datos["medico"]);
+  	$datos["specialty"] = $doctor->specialty->id;
+	$datos["fecha"] = $datos["fecha"]." ".$datos["hora"];
+	//dd($datos);
+	$ficha = Ficha::create($datos);
 	flash('Ficha creada Exitosamente');
 	return redirect()->route('ficha.index');
   }

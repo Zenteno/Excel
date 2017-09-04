@@ -21,19 +21,11 @@
 			<form class="form-horizontal" action="/ficha" method="POST">
 				<div class="box-body">
 					<div class="form-group row">
-			          {{Form::label('especialidad','Especialidad',['class'=>'col-sm-2 control-label'])}}
-			          <div class="col-sm-10">
-									{!!Form::select('specialty', $especialidades->pluck('especialidad','id'), null,['placeholder'=>'Selecciona una Especialidad','class' => 'form-control' ,'required', 'id'=>'specialty'])!!}
-			          </div>
-			    </div>
-					<div class="form-group row">
 			          {{Form::label('medico','Médico',['class'=>'col-sm-2 control-label'])}}
 			          <div class="col-sm-10">
-			           {!!Form::select('medico', ['0'=>'Seleccione un Médico'],null,['class' => 'form-control' ,'required', 'id'=>'medicos'])!!}
+									{!!Form::select('medico', $medicos->pluck('nombres','id'), null,['placeholder'=>'Selecciona un Médico','class' => 'form-control' ,'required', 'id'=>'medico'])!!}
 			          </div>
-			   	</div>
-
-
+			    </div>
 					<div class="bootstrap-timepicker">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Hora</label>
@@ -150,37 +142,6 @@
 			showInputs: false,
 			showMeridian: false
 		});
-
-				$(document).ready(function(){
-					$(document).on('change','#specialty',function(){
-						var especialidad_id=$(this).val();
-						var div=$(this).parent();
-            var op=" ";
-
-						console.log(especialidad_id);
-						$.ajax({
-							type:'get',
-							url: '{!!URL::to('ficha/getMedicos')!!}',
-							data:{'id':especialidad_id},
-							dataType: 'json',
-							success:function(data){
-                    console.log('success');
-                    console.log(data);
-
-                    console.log(data.length);
-										$('#medicos').empty();
-                op+='<option value="0" selected disabled>Seleccione un Médico</option>';
-                for(var i=0;i<data.length;i++){
-                	op+='<option value="'+data[i].id+'">'+data[i].nombres+'</option>';
-              	}
-								$("#medicos").append(op);
-
-              },
-							error:function(){
-							}
-						});
-					});
-				});
 
 	</script>
 @endsection
