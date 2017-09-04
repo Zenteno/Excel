@@ -15,8 +15,8 @@ class CreateCallLogsTable extends Migration
     {
         Schema::create('call_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ficha_id')->unsigned();
-            $table->integer('callstate_id')->unsigned();
+            $table->integer('ficha_id')->unsigned()->nullable();
+            $table->integer('callstate_id')->unsigned()->nullable();
             $table->string('telefono');
             $table->string('comment')->nullable();
             $table->timestamps();

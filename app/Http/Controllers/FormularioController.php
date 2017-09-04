@@ -167,6 +167,27 @@ class FormularioController extends Controller
       return response()->json($medicos);
     }
   }
+  public function llamada(Request $request){
+    dd($request->all());
+    $fono = $request->telefono;
+    $anexo = $request->anexo;
+    $fono=strrev($fono);
+    $fono=substr($fono,0,8);
+    $fono=strrev ($fono);
+    try {
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, 'https://192.168.0.150/generaLlamada.php?telefono=$fono&anexo=$anexo');
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $response = curl_exec($ch);
+      curl_close($ch);
+    return $response;
+    
+    } catch (Exception $e) {
+      
+    }
+      
+  }
   public function mensajeria(Request $request){
     if($request->ajax()){
       $ficha=Ficha::find($request->ficha);

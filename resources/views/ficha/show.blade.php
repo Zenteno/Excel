@@ -150,7 +150,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 									<button type="button" class="btn btn-sms btn-primary" id="1">¡Enviar sms!</button>
-									<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
+									<button type="button" class="btn btn-success btn-call" id='1'>¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -164,7 +164,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 								<button type="button" class="btn btn-sms btn-primary" id='2' >¡Enviar sms!</button>
-								<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
+								<button type="button" class="btn btn-success btn-call" id='2'>¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -178,7 +178,7 @@
 							<div class="input-group">
 								<span class="input-group-btn">
 								<button type="button" class="btn btn-sms btn-primary" id='3'>¡Enviar sms!</button>
-								<button type="button" class="btn btn-success btn-call">¡Llamar!</button>
+								<button type="button" class="btn btn-success btn-call" id='3'>¡Llamar!</button>
 								</span>
 							</div>
 						</div>
@@ -262,6 +262,17 @@ $(document).ready(function(){
 				}
 			});
 			$('#modalsuccess').modal();
+		});
+		$(".btn-call").click(function(e){
+			var telefono = $('#fono'+this.id).val();
+			$.post("llamada",
+			{
+				telefono : telefono,
+				anexo : 4000,
+				_token: "{{csrf_token()}}"
+			}, function( data ) {
+  				console.log(data);
+			});
 		});
   });
 
