@@ -18,6 +18,7 @@ use App\Spe_user;
 use App\Index_file;
 use App\Location;
 use App\Call_log;
+use App\Callstate;
 
 class FormularioController extends Controller
 {
@@ -59,9 +60,11 @@ class FormularioController extends Controller
 		$ficha = Ficha::where('id',$id)->with('doctor','fespecialidad','festado','flocation')->first();
     $estados= Status::All();
     $lugares = Location::All();
+    $callstates=Callstate::All();
 		return view('ficha.show')->with('ficha',$ficha)
                             ->with('estados', $estados)
-                            ->with('lugares', $lugares);
+                            ->with('lugares', $lugares)
+                            ->with('callstates', $callstates);
   	}
 
 	public function listar(Request $request){
@@ -224,6 +227,31 @@ class FormularioController extends Controller
     return;
     }
   }
+
+  public function confirmsms(Request $request){
+    if($request->ajax()){
+      $batchid = $request->batch_id;
+      try {
+      	$ch = curl_init();
+      	curl_setopt($ch, CURLOPT_URL, 'https://sms.lanube.cl/services/rest/'.$batchid.'/status');
+      	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      	curl_setopt($ch, CURLOPT_USERPWD, "KROPSYS:KROPSYS");
+      	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+      	curl_setopt($ch, CURLOPT_GET, true);
+      	$response = curl_exec($ch);
+      	var_export($response);
+      } catch (Exception $e) {
+      	var_dump($e);
+        }
+      /*  Check batch status:
+       *  Using cURL:
+       *  Check batch using:
+       *  curl -v -u username -X GET https://sms.lanube.cl/services/rest/XXXXXXX/status.
+       *  Replace XXXXXXX with a valid batch id.
+       */
+    }
+  }
+
   public function changestatus(Request $request){
     if($request->ajax()){
       $ficha=Ficha::find($request->ficha);
@@ -244,5 +272,7 @@ class FormularioController extends Controller
         return response()->json('<a class="pull-right" id="lugares">{{ $ficha->flocation->location_name }}</a>');
     }
   }
+
+
 
 }

@@ -195,7 +195,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal para actualizar estado de ficha -->
 <div id="createmodal" class="modal fade" role="dialog">
   <div class="modal-dialog" role="document">
 
@@ -242,6 +242,38 @@
 	</div>
 	<!-- /.modal -->
 
+	<!-- modal actualizar regstro lamadas -->
+		<div class="modal fade" id="actualizareg">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+	    	<div class="modal-content">
+	      	<div class="modal-header">
+	        	<h4 class="modal-title">Actualizar Registro de LLamada</h4>
+	    		</div>
+	      	<div class="modal-body">
+	        	<div class="form-group row">
+	          	<label for="estado" class="col-sm-3 control-label">Seleccione estado de llamada:</label>
+	          	<div class="col-sm-9">
+								{!!Form::select('callstate', $callstates->pluck('estadollamada','id'), null,['placeholder'=>'Seleccione resultado de la llamada','class' => 'form-control' ,'required', 'id'=>'callreg'])!!}
+	          	</div>
+							 </div>
+							<div class="form-group row">
+		          	<label for="estado" class="col-sm-3 control-label">Observación:</label>
+		          	<div class="col-sm-9">
+									<dd><textarea class="form-control" id="comentario"rows="2" name="comentarios" required placeholder="Paciente no disponible, llamar despues de 16:00hrs."></textarea></dd>
+		          	</div>
+	      		</div>
+
+	      	<div class="modal-footer">
+	      		<button type="button" id="cssucess" class= "btn btn-primary pull-right">Aceptar</button>
+	        	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+	      	</div>
+	    	</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+		<!-- /.modal -->
+
 
 <script>
 $('div.alert').not('.alert-important').fadeIn(350).delay(2300).fadeOut(350);
@@ -266,26 +298,47 @@ $(document).ready(function(){
 			});
 			$('#modalsuccess').modal();
 		});
+
 		$(".btn-call").click(function(e){
 			var telefono = $('#fono'+this.id).val();
-			$.post("llamada",
-			{
+			$.post("llamada",{
 				telefono : telefono,
 				anexo : 4000,
 				_token: "{{csrf_token()}}"
-			}, function( data ) {
-  				console.log(data);
-			});
-		});
-  });
+			},
+			function( data ) {
+				console.log(data);
+				$("#actualizareg").modal();
+				$('#cssucess').click(function(e){
+					var estado = $('#callreg').val();
+					var comentario = $('#comentario').val();
+					var ficha_id = {{$ficha->id}};
+					$.post("callstatereg",{
+						ficha_id: ficha_id,
+						telefono: telefono,
+						estado: estado,
+						comentario : comentario,
+						_token: "{{csrf_token()}}",
+					},function(data){
+						console.log(data);
+						$("#actualizareg").modal('hide');
+						location.reload();
+					});
+				});
 
-	$(document).ready(function(){
-		$(document).on('click','#estados',function(e){
-			e.preventDefault();
-			$("#createmodal").modal()
+
 		});
 	});
-	$(document).ready(function(){
+
+
+
+
+		$(document).on('click','#estados',function(e){
+			e.preventDefault();
+			$("#createmodal").modal();
+		});
+
+
 		$(document).on('click','#mlsuccess',function(e){
 			e.preventDefault();
 			var status_id = $('#states').val();
@@ -331,6 +384,6 @@ $(document).ready(function(){
 				}
 			});
 		});
-	});
+});
 </script>
 @endsection

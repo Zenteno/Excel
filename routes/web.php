@@ -24,6 +24,7 @@ Route::get('ficha/listar','FormularioController@listar');
 Route::get('ficha/getMedicos','FormularioController@getMedicos');
 Route::post('ficha/mensajeria','FormularioController@mensajeria');
 Route::post('ficha/llamada','FormularioController@llamada');
+Route::post('ficha/callstatereg','Call_LogController@callstatereg');
 Route::post('ficha/changestatus','FormularioController@changestatus');
 Route::post('ficha/changelugar','FormularioController@changelugar');
 Route::post('estados/update','EstadosController@update');
