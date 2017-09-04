@@ -75,7 +75,6 @@ class FormularioController extends Controller
 	}
 
 	public function archivo(Request $request){
-    $request->user()->authorizeRoles(['Ejecutivo']);
     if ($request->hasFile('file')) {
       	$file = $request->file('file');
 		$nombre = $file->getClientOriginalName();
@@ -118,7 +117,8 @@ class FormularioController extends Controller
           $new_espe = new Specialty();
           $new_espe->especialidad = $dato["A"];
           $new_espe->save();
-          $arreglo["specialty"]=Specialty::where('id',$dato["A"])->first();
+
+          $arreglo["specialty"]=$new_espe->id;
           flash("¡Se ha agregado una Nueva Especialidad");
         }
         try{
@@ -187,11 +187,11 @@ class FormularioController extends Controller
       $response = curl_exec($ch);
       curl_close($ch);
     return $response;
-    
+
     } catch (Exception $e) {
-      
+
     }
-      
+
   }
   public function mensajeria(Request $request){
     if($request->ajax()){

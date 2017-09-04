@@ -28,6 +28,7 @@
 			@include('flash::message')
 				<div class="box-header">
 					<h3 class="box-title">Formularios</h3>
+					@if( Auth::user()->hasrole('Administrador'))
 					<span class="btn btn-success fileinput-button pull-right">
 						<i class="glyphicon glyphicon-plus"></i>
 						<span>Subir Excel</span>
@@ -37,7 +38,7 @@
 					<a class="btn btn-success" href="/ficha/create">
 						<i class="fa fa-plus"></i> Nuevo
 					</a>
-
+					@endif
 				</div>
 							<!-- /.box-header -->
 				<div class="box-body">

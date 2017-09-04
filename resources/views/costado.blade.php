@@ -25,10 +25,10 @@
 		<!-- /.search form -->
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu">
-			<li class="header">HEADER</li>
+			<li class="header">Menú</li>
 			<!-- Optionally, you can add icons to the links -->
 			<li class="active"><a href="/"><i class="fa fa-link"></i> <span>Fichas Confirmación</span></a></li>
-			<!--  <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>  -->
+			@if( Auth::user()->hasrole('Administrador') )
 			<li class="treeview">
 				<a href="#"><i class="fa fa-link"></i> <span>Administración</span>
 				<span class="pull-right-container">
@@ -42,6 +42,7 @@
 					<li><a href="/estados">Estados Fichas</a></li>
 				</ul>
 			</li>
+			@endif
 		</ul>
 		<!-- /.sidebar-menu -->
 	</section>
