@@ -304,7 +304,7 @@ $(document).ready(function(){
 			$.post("llamada",{
 				telefono : telefono,
 				anexo : 4000,
-				_token: "{{csrf_token()}}"
+				"_token": "{{csrf_token()}}"
 			},
 			function( data ) {
 				console.log(data);

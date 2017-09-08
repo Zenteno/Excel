@@ -172,20 +172,22 @@ class FormularioController extends Controller
     }
   }
   public function llamada(Request $request){
-    dd($request->all());
     $fono = $request->telefono;
     $anexo = $request->anexo;
     $fono=strrev($fono);
     $fono=substr($fono,0,8);
     $fono=strrev ($fono);
     try {
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, 'https://192.168.0.150/generaLlamada.php?telefono=$fono&anexo=$anexo');
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      $response = curl_exec($ch);
-      curl_close($ch);
-    return $response;
+		$arrContextOptions=array(
+    "ssl"=>array(
+        "verify_peer"=>false,
+        "verify_peer_name"=>false,
+    ),
+);
+		$xml = file_get_contents("https://192.168.0.150/generaLlamada.php?telefono=985585662&anexo=4002", false, stream_context_create($arrContextOptions));
+      
+	  return response()->json($xml);
+    //return $response;
 
     } catch (Exception $e) {
 
