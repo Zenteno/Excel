@@ -141,6 +141,7 @@ class FormularioController extends Controller
           $new_doctor->comentarios = 'Médico ingresado por ficha.';
           $new_doctor->save();
           $arreglo["medico_nombre"]=strtoupper( $dato["B"]);
+          $arreglo["medico"]=$new_doctor->id;
           flash("¡Se agregó un nuevo Médico!");
         }
 

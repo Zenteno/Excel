@@ -100,7 +100,11 @@
 								<dt>Registro en ficha 3:</dt>
 								<dd>{{ $ficha->intento3 }}</dd>
 							</dl>
+							<a class="btn-xs btn-primary" href="">
+								<i class="fa fa-list"></i> Ver Historial de Contacto
+							</a>
 						</div>
+
 						<!-- /.box-body -->
 
 					</div>
@@ -320,7 +324,7 @@ $(document).ready(function(){
 						telefono	: telefono,
 						estado		: estado,
 						comentario: comentario,
-						respuesta	: obj.respuestaOK,
+						respuesta	: obj.respuestaOk,
 						mensaje		: obj.mensaje,
 						uniqueId	: obj.uniqueId,
 						"_token": "{{csrf_token()}}",
