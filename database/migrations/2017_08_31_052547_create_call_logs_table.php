@@ -18,6 +18,9 @@ class CreateCallLogsTable extends Migration
             $table->integer('ficha_id')->unsigned()->nullable();
             $table->integer('callstate_id')->unsigned()->nullable();
             $table->string('telefono');
+            $table->string('uniqueid')->nullable();
+            $table->string('respuestaok');
+            $table->string('mensaje');
             $table->string('comment')->nullable();
             $table->timestamps();
 

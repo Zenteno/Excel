@@ -89,8 +89,8 @@
 				</div>
 
 				<div class="col-sm-4">
-					<div class="box box-solid">
-						<div class="panel-heading">Intentos de contacto</div>
+					<div class="box box-primary">
+						<div class="panel-heading">Observaciones en Ficha</div>
 						<div class="box-body">
 							<dl class="dl-horizontal">
 								<dt>Registro en ficha 1:</dt>
@@ -102,15 +102,16 @@
 							</dl>
 						</div>
 						<!-- /.box-body -->
+
 					</div>
 					<!-- /.box -->
-					<div class="box box-solid">
+					<div class="box box-primary">
 
 						<div class="box-body">
 							<ul class="list-group list-group-unbordered">
 								<li class="list-group-item">
 									<b>Estado de Ficha</b>
-									<a class="pull-right" id="estados">{{ $ficha->festado->estado }}</a>
+									<a class="pull-right fa fa-edit" id="estados">{{ $ficha->festado->estado }}</a>
 								</li>
 								<li class="list-group-item form-group">
 
@@ -310,15 +311,19 @@ $(document).ready(function(){
 				console.log(data);
 				$("#actualizareg").modal();
 				$('#cssucess').click(function(e){
+					var obj = JSON.parse(data);
 					var estado = $('#callreg').val();
 					var comentario = $('#comentario').val();
 					var ficha_id = {{$ficha->id}};
 					$.post("callstatereg",{
-						ficha_id: ficha_id,
-						telefono: telefono,
-						estado: estado,
-						comentario : comentario,
-						_token: "{{csrf_token()}}",
+						ficha_id	: ficha_id,
+						telefono	: telefono,
+						estado		: estado,
+						comentario: comentario,
+						respuesta	: obj.respuestaOK,
+						mensaje		: obj.mensaje,
+						uniqueId	: obj.uniqueId,
+						"_token": "{{csrf_token()}}",
 					},function(data){
 						console.log(data);
 						$("#actualizareg").modal('hide');
