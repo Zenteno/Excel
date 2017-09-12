@@ -175,7 +175,7 @@ class FormularioController extends Controller
   public function llamada(Request $request){
     $anexo = Auth::user();
     $fono = $request->telefono;
-    $anexo = $anexo->uanexo()->anexo;
+    $anexo = $anexo->anexo->anexo;
     $fono=strrev($fono);
     $fono=substr($fono,0,8);
     $fono=strrev ($fono);
