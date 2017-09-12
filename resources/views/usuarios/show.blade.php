@@ -38,6 +38,13 @@ resize: vertical;
                 <dt>Rol/es</dt>
                 <dd>{{ $rol->nombre_rol }} </dd>
                 @endforeach
+                <dt>Anexo</dt>
+                @if ($usuarios->anexo != null)
+                <dd>{{ $usuarios->anexo->anexo }}</dd>
+                @endif
+                @if ($usuarios->anexo == null)
+                <dd>no tiene asignado un anexo aún</dd>
+                @endif
               </dl>
             </div>
           </div>

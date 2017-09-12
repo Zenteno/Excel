@@ -10,4 +10,8 @@ class ExtensionPhone extends Model
     protected $fillable = ['anexo'];
 
 
+    public function euser(){
+      return $this
+        ->hasOne('App\User');
+    }
 }

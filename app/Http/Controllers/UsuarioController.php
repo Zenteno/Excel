@@ -7,6 +7,7 @@ use App\User;
 use App\Specialty;
 use App\Spe_user;
 use App\Role;
+use App\ExtensionPhone;
 
 
 class UsuarioController extends Controller
@@ -93,7 +94,9 @@ class UsuarioController extends Controller
     {
         $usuario = User::where('id',$id)->with('specialty')->first();
         $especialidad = Specialty::all();
-        return view('usuarios.edit')->with(['usuario'=> $usuario, 'especialidades'=>$especialidad]);
+        $anexos = ExtensionPhone::all();
+        return view('usuarios.edit')->with(['usuario'=> $usuario, 'especialidades'=>$especialidad])
+                                    ->with('anexos', $anexos);
     }
 
     /**
@@ -106,6 +109,11 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $especialidades = $request->get('especialidad');
+        $anexo_id = $request->get('anexo');
+        $usuario = User::findOrFail($id);
+        $usuario->anexo_id=$anexo_id;
+        $usuario->save();
+        flash("usuario actualizado exitosamente");
         $deletedRows = Spe_user::where('usuario', $id)->delete();
         foreach ($especialidades as $especialidad) {
             Spe_user::create([

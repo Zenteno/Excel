@@ -35,6 +35,13 @@
                 <dt>Rol/les</dt>
                 <dd>{{ $rol->nombre_rol }}</dd>
                 @endforeach
+                <dt>Anexo</dt>
+                @if ($usuario->anexo != null)
+                <dd>{{ $usuario->anexo->anexo }}</dd>
+                @endif
+                @if ($usuario->anexo == null)
+                <dd>no tiene asignado un anexo aún</dd>
+                @endif
                 </dl>
             </div>
           </div>
@@ -68,6 +75,10 @@
                   @endforeach
                 </select>
               </div>
+              <div class="form-group row col-sm-2">
+                  <label>Anexo</label>
+                  {!!Form::select('anexo', $anexos->pluck('anexo','id'), $usuario->anexo_id,['class' => 'form-control'])!!}
+                </div>
           </div>
         </div>
         <div class="box-footer">

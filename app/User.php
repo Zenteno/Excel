@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','telefono','rut','fecha_nacimientos','apellidos'
+        'name', 'email', 'password','telefono','rut','fecha_nacimientos','apellidos','anexo_id'
     ];
 
     /**
@@ -70,6 +70,13 @@ class User extends Authenticatable
         }
         return false;
       }
+
+      public function anexo()
+      {
+        return $this
+          ->belongsTo('App\ExtensionPhone');
+      }
+
 
 
 }

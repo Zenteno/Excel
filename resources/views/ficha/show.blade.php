@@ -100,7 +100,7 @@
 								<dt>Registro en ficha 3:</dt>
 								<dd>{{ $ficha->intento3 }}</dd>
 							</dl>
-							<a class="btn-xs btn-primary" href="">
+							<a class="btn-xs btn-primary pull-right" href="">
 								<i class="fa fa-list"></i> Ver Historial de Contacto
 							</a>
 						</div>
@@ -308,7 +308,6 @@ $(document).ready(function(){
 			var telefono = $('#fono'+this.id).val();
 			$.post("llamada",{
 				telefono : telefono,
-				anexo : 4000,
 				"_token": "{{csrf_token()}}"
 			},
 			function( data ) {

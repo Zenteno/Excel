@@ -173,8 +173,9 @@ class FormularioController extends Controller
     }
   }
   public function llamada(Request $request){
+    $anexo = Auth::user();
     $fono = $request->telefono;
-    $anexo = $request->anexo;
+    $anexo = $anexo->uanexo()->anexo;
     $fono=strrev($fono);
     $fono=substr($fono,0,8);
     $fono=strrev ($fono);
@@ -189,7 +190,7 @@ class FormularioController extends Controller
       return response()->json($xml);
       //return $response;
 
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       //code catch
     }
 
@@ -220,7 +221,7 @@ class FormularioController extends Controller
       	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
       	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-      	curl_setopt($ch, CURLOPT_USERPWD, "KROPSYS:KROPSYS");
+      	curl_setopt($ch, CURLOPT_USERPWD, "KROPSYS:KROPSYS2017");
       	curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
       	curl_setopt($ch, CURLOPT_POST, true);
       	$response = curl_exec($ch);
