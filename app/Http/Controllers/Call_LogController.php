@@ -25,6 +25,11 @@ class Call_LogController extends Controller
     }
 
 
+    public function index()
+    {
+        $estadosllamadas = Call_log::ALL();
+    		return view('regllamadas.index')->with('estadosllamadas',$estadosllamadas);
+    }
 
     public function callstatereg(Request $request){
        if($request->ajax()){
@@ -36,12 +41,14 @@ class Call_LogController extends Controller
          $new_log->comment      = $request->comentario;
          $new_log->respuestaok  = $request->respuesta;
          $new_log->mensaje      = $request->mensaje;
-         $new_log->uniqueid     = $request->uniqueId; 
+         $new_log->uniqueid     = $request->uniqueId;
          $new_log->save();
            flash('Nuevo registro de llamada creado Exitosamente');
            return;
        }
      }
+
+
 
 
 }

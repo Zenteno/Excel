@@ -284,6 +284,7 @@
 $('div.alert').not('.alert-important').fadeIn(350).delay(2300).fadeOut(350);
 $(document).ready(function(){
 	$(document).on('click','.btn-sms',function(e){
+		  $(".btn-sms").attr("disabled", true).html("Enviando sms...");
 			e.preventDefault();
 			console.log(this);
 			var telefono=$('#fono'+this.id).val();
@@ -306,6 +307,7 @@ $(document).ready(function(){
 
 		$(".btn-call").click(function(e){
 			var telefono = $('#fono'+this.id).val();
+			$(".btn-call").attr("disabled", true).html("llamando...");
 			$.post("llamada",{
 				telefono : telefono,
 				"_token": "{{csrf_token()}}"
@@ -333,8 +335,6 @@ $(document).ready(function(){
 						location.reload();
 					});
 				});
-
-
 		});
 	});
 

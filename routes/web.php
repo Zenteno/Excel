@@ -18,6 +18,7 @@ Route::resource('medicos','MedicosController');
 Route::resource('especialidades','EspecialidadesController');
 Route::resource('usuarios','UsuarioController');
 Route::resource('estados', 'EstadosController');
+Route::resource('regllamadas', 'Call_LogController');
 
 Route::post('ficha/archivo','FormularioController@archivo');
 Route::get('ficha/listar','FormularioController@listar');
