@@ -40,7 +40,25 @@
             </tr>
           </thead>
 					<tbody>
-
+            @foreach($registro as $esllam)
+                <tr>
+                    <td class="">{{$esllam->cficha->id}}-{{ $esllam->ficha_id}}</td>
+                    <td class="">{{ $esllam->telefono}}</td>
+        						<td class="">{{ $esllam->ccallstate->estadollamada}}</td>
+                    <td class="">{{ $esllam->comment }}</td>
+                    <td class="">{{  $esllam->created_at }}</td>
+                    {!! Form::open(['route' => ['regllamadas.destroy', $esllam->id], 'method' => 'DELETE']) !!}
+                      	<td class="text-center">
+          								<button type="submit" class="btn btn-danger btn-xs confirm" data-confirm = '¿Eliminar Registro: {{ $esllam->cficha->id}}-{{$esllam->id }}?'>
+                              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          								</button>
+                          <a href="{{ route('regllamadas.show', $esllam->id) }}" class="btn btn-primary btn-xs">detalles
+                              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          </a>
+                      	</td>
+                    {{Form::close()}}
+              </tr>
+            				@endforeach
   				</tbody>
         </table>
 

@@ -38,8 +38,9 @@
 				<ul class="treeview-menu">
 					<li><a href="/medicos">Médicos</a></li>
 					<li><a href="/especialidades">Especialidades</a></li>
-					<li><a href="/usuarios">Usuarios</a></li>
+					<li><a href="/regllamadas">Registro de llamadas</a></li>
 					<li><a href="/estados">Estados Fichas</a></li>
+					<li><a href="/usuarios">Usuarios</a></li>
 				</ul>
 			</li>
 			@endif

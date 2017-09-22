@@ -27,8 +27,8 @@ class Call_LogController extends Controller
 
     public function index()
     {
-        $estadosllamadas = Call_log::ALL();
-    		return view('regllamadas.index')->with('estadosllamadas',$estadosllamadas);
+        $registro = Call_log::All();
+    		return view('regllamadas.index')->with('registro',$registro);
     }
 
     public function callstatereg(Request $request){
