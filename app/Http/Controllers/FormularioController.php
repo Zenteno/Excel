@@ -43,13 +43,16 @@ class FormularioController extends Controller
                              ->with('indice',$indice);
   }
   public function store(Request $request){
+    $new_index= new Index_file();
+    $new_index->file_name= "Ingreso Manual";
+    $new_index->save();
   	$datos = $request->all();
   	$doctor = Doctor::find($datos["medico"]);
     $loc=Location::where('location_name','Por asignar')->first();
     $datos['location_id']=$loc->id;
   	$datos["specialty"] = $doctor->specialty->id;
 	  $datos["fecha"] = $datos["fecha"]." ".$datos["hora"];
-	  $datos["index_id"]="00";
+	  $datos["index_id"]=$new_index->id;
 	$ficha = Ficha::create($datos);
 	flash('Ficha creada Exitosamente');
 	return redirect()->route('ficha.index');

@@ -76,8 +76,8 @@
 									<b>Edad</b> <a class="pull-right">{{ $ficha->edad }}</a>
 								</li>
 								<li class="list-group-item">
-									<b>Prestacion</b>
-									<a class="pull-right">{{ $ficha->prestacion }}</a>
+									<b class="">Prestacion</b>
+									<a class="">{{ $ficha->prestacion }}</a>
 								</li>
 							</ul>
 							<strong><i class="fa fa-book margin-r-5"></i> Comentarios</strong>
