@@ -302,6 +302,7 @@ $(document).ready(function(){
 				error:function(){
 				}
 			});
+			$(".btn-sms").attr("disabled", false).html("¡Enviar sms!");
 			$('#modalsuccess').modal();
 		});
 
